@@ -1,4 +1,4 @@
-= Introduction =
+# Introduction 
 
 Outside of pure unit tests it sometimes becomes desirable to do dependency
 injection in automated tests. By their nature these aren't the typical unit
@@ -9,17 +9,17 @@ hit, such as hostnames and database connection strings, or may be client
 SDKs to the system under test. This framework is intended to support these
 scenarios.
 
-= Warning =
+# Warning
 Good unit tests shouldn't need dependency injection. If you need dependency
 injection in unit tests then consider whether the design of the system needs
 to change. From here on out it is assumed that the purpose for dependency
 injection within tests has been validated and is appropriate.
 
-= API Stability =
+# API Stability
 In accordance with semantic versioning, all versions prior to 1.0 are assumed
 pre-releases and are **NOT** subject to API/ABI compatibility.
 
-= Usage = 
+# Usage
 
 The below is subject to change at our whims until version 1.0:
 
@@ -61,5 +61,3 @@ public class MyTests
 }
 
 ```
-
-
