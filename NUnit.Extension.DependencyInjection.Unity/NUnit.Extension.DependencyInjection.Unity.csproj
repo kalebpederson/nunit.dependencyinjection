@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;netcoreapp2.1</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Unity.Container" Version="5.8.11" />
+    <PackageReference Include="Unity.RegistrationByConvention" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NUnit.Extension.DependencyInjection\NUnit.Extension.DependencyInjection.csproj" />
+  </ItemGroup>
+
+</Project>

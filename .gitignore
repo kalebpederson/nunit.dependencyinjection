@@ -1,0 +1,9 @@
+obj
+bin
+DataLakeTemp
+log
+.idea
+.vs
+IDE.config
+*.ncrunchproject*
+*.ncrunchsolution*
