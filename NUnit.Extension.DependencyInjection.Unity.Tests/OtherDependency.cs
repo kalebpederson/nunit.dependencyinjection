@@ -1,4 +1,4 @@
-﻿namespace NUnit.Extension.DependencyInjection.Tests
+﻿namespace NUnit.Extension.DependencyInjection.Unity.Tests
 {
   public class OtherDependency : IOtherDependency
   {

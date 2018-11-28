@@ -5,5 +5,6 @@ log
 .idea
 .vs
 IDE.config
+_NCrunch*
 *.ncrunchproject*
 *.ncrunchsolution*

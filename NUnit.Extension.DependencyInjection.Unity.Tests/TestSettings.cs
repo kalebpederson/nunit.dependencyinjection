@@ -2,7 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace NUnit.Extension.DependencyInjection.Tests
+namespace NUnit.Extension.DependencyInjection.Unity.Tests
 {
   public class TestSettings : ITestSettings
   {

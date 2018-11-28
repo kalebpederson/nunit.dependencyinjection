@@ -5,18 +5,11 @@ using Unity.RegistrationByConvention;
 
 namespace NUnit.Extension.DependencyInjection.Unity
 {
-  public class ConventionMappingTypeDiscoverer : ITypeDiscoverer
+  public class ConventionMappingTypeDiscoverer : TypeDiscovererBase<IUnityContainer>
   {
-    private readonly IUnityContainer _container;
-
-    public ConventionMappingTypeDiscoverer(IUnityContainer container)
+    protected override void DiscoverInternal(IUnityContainer container)
     {
-      _container = container;
-    }
-
-    public void Discover()
-    {
-      _container.RegisterTypes(
+      container.RegisterTypes(
         AppDomain.CurrentDomain.GetAssemblies()
           .Where(a => a.GetCustomAttributes(typeof(ScanInContainerAttribute), true).Any())
           .SelectMany(x => x.GetTypes()),

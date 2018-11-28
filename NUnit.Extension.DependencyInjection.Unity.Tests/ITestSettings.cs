@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NUnit.Extension.DependencyInjection.Tests
+namespace NUnit.Extension.DependencyInjection.Unity.Tests
 {
   public interface ITestSettings
   {

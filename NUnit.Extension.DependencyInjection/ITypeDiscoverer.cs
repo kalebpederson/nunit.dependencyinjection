@@ -2,6 +2,6 @@
 {
   public interface ITypeDiscoverer
   {
-    void Discover();
+    void Discover(object container);
   }
 }
