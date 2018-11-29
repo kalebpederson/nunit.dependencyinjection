@@ -1,10 +1,14 @@
+# directories
 obj
 bin
 DataLakeTemp
 log
 .idea
 .vs
-IDE.config
 _NCrunch*
+
+# files
+IDE.config
 *.ncrunchproject*
 *.ncrunchsolution*
+*.swp

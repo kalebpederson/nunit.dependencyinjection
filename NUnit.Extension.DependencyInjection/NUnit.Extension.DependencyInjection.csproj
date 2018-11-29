@@ -1,7 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks>net45;net46;net47;netstandard20</TargetFrameworks>
+    <Version>0.1.0</Version>
+    <Authors>Kaleb Pederson</Authors>
+    <Company>Kaleb Pederson Software LLC</Company>
+    <Description>Enables dependency injection within NUnit. Dependency injection support is container specific and provided by separate NuGet packages.</Description>
+    <Copyright>Kaleb Pederson Software LLC</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/kalebpederson/nunit.dependencyinjection</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kalebpederson/nunit.dependencyinjection</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>nunit dependency-injection</PackageTags>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net46' OR '$(TargetFramework)' == 'net47'">
+    <DefineConstants>NETFULL</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

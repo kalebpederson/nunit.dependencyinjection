@@ -1,9 +1,14 @@
 ﻿using System;
+
+#if NETFULL
 using System.Runtime.Serialization;
+#endif
 
 namespace NUnit.Extension.DependencyInjection
 {
+#if NETFULL
   [Serializable]
+#endif
   public class DependencyResolutionException : Exception
   {
     /// <summary>
@@ -30,12 +35,14 @@ namespace NUnit.Extension.DependencyInjection
              $"needed by class {injectionClassType.FullName}.";
     }
 
+#if NETFULL
     /// <inheritdoc />
     protected DependencyResolutionException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
       InjectionClassType = (Type)info.GetValue(nameof(InjectionClassType), typeof(Type));
       InjectionParameterType = (Type)info.GetValue(nameof(InjectionParameterType), typeof(Type));
     }
+#endif
 
   }
 }
