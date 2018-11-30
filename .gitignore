@@ -9,6 +9,7 @@ _NCrunch*
 
 # files
 IDE.config
+nCrunchTemp*
 *.ncrunchproject*
 *.ncrunchsolution*
 *.swp

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;net46;net47;netstandard20</TargetFrameworks>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>Kaleb Pederson</Authors>
     <Company>Kaleb Pederson Software LLC</Company>
     <Description>Enables dependency injection within NUnit using the Unity inversion of control container.</Description>
@@ -12,6 +12,11 @@
     <RepositoryUrl>https://github.com/kalebpederson/nunit.dependencyinjection</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>nunit dependency-injection unity</PackageTags>
+    <IsTestProject>false</IsTestProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net46' OR '$(TargetFramework)' == 'net47'">
+    <DefineConstants>NETFULL</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

@@ -38,7 +38,7 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
     }
 
     [Test]
-    public void Discoverer_resolves_the_available_registrars()
+    public void Discover_resolves_the_available_registrars()
     {
       var container = new UnityContainer();
       var callCount = 0;
@@ -58,11 +58,10 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
         Is.True,
         $"Expected the registration action to be called and have registered the {typeof(TestingNestedClass).FullName} type."
       );
-      
     }
 
     [Test]
-    public void Discoverer_calls_the_CallTrackingRegistrar_Register_method()
+    public void Discover_calls_the_CallTrackingRegistrar_Register_method()
     {
       var container = new UnityContainer();
       var callCount = 0;
@@ -75,5 +74,19 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
       Assert.That(CallTrackingRegistrar.RegisterCallCount, Is.GreaterThan(0));
     }
 
+    [Test]
+    public void Discover_throws_TypeDiscoveryException_on_registrar_error()
+    {
+      var container = new UnityContainer();
+
+      void RegistrationAction(IUnityContainer c) { throw new Exception("Failed!");}
+
+      container.RegisterInstance((Action<IUnityContainer>) RegistrationAction);
+      var discoverer = new IocRegistrarTypeDiscoverer();
+      Assert.That(
+        () => discoverer.Discover(container),
+        Throws.Exception.TypeOf<TypeDiscoveryException>());
+
+    }
   }
 }

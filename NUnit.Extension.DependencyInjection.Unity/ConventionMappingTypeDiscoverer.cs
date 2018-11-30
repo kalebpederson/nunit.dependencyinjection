@@ -9,14 +9,21 @@ namespace NUnit.Extension.DependencyInjection.Unity
   {
     protected override void DiscoverInternal(IUnityContainer container)
     {
-      container.RegisterTypes(
-        AppDomain.CurrentDomain.GetAssemblies()
-          .Where(a => a.GetCustomAttributes(typeof(ScanInContainerAttribute), true).Any())
-          .SelectMany(x => x.GetTypes()),
-        WithMappings.FromMatchingInterface,
-        WithName.Default,
-        WithLifetime.Hierarchical
-      );
+      try
+      {
+        container.RegisterTypes(
+          AppDomain.CurrentDomain.GetAssemblies()
+            .Where(a => a.GetCustomAttributes(typeof(ScanInContainerAttribute), true).Any())
+            .SelectMany(x => x.GetTypes()),
+          WithMappings.FromMatchingInterface,
+          WithName.Default,
+          WithLifetime.Hierarchical
+        );
+      }
+      catch (Exception ex)
+      {
+        throw new TypeDiscoveryException(GetType(), ex);
+      }
     }
   }
 }

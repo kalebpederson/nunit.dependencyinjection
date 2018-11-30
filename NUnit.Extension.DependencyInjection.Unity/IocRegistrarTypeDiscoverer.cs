@@ -16,9 +16,20 @@ namespace NUnit.Extension.DependencyInjection.Unity
         .ToList();
       foreach (var registrar in types)
       {
-        // TODO: exception handling
-        var registrarInstance = (IIocRegistrar)container.Resolve(registrar);
+        ResolveAndRunRegistrar(container, registrar);
+      }
+    }
+
+    private static void ResolveAndRunRegistrar(IUnityContainer container, Type registrar)
+    {
+      try
+      {
+        var registrarInstance = (IIocRegistrar) container.Resolve(registrar);
         registrarInstance.Register(container);
+      }
+      catch (Exception ex)
+      {
+        throw new TypeDiscoveryException(registrar, ex);
       }
     }
   }
