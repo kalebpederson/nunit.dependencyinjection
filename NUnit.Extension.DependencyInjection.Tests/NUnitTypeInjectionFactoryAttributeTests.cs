@@ -22,7 +22,7 @@ namespace NUnit.Extension.DependencyInjection.Tests
       Assert.That(
         () => new NUnitTypeInjectionFactoryAttribute(typeof(IEnumerable<>)), 
         Throws.InstanceOf<ArgumentOutOfRangeException>()
-          .With.Message.Match($"must be of type {nameof(IIocContainer)}")
+          .With.Message.Match($"must be of type {nameof(IInjectionFactory)}")
         );
     }
 
@@ -30,7 +30,7 @@ namespace NUnit.Extension.DependencyInjection.Tests
     public void Ctor_does_not_throw_for_valid_type_implementing_IInjectionFactory()
     {
       Assert.That(
-        () => new NUnitTypeInjectionFactoryAttribute(typeof(DependencyInjectingTestFixtureAttributeTests.ValidIocContainer)), 
+        () => new NUnitTypeInjectionFactoryAttribute(typeof(DependencyInjectingTestFixtureAttributeTests.ValidInjectionFactory)), 
         Throws.Nothing
         );
     }
@@ -39,20 +39,25 @@ namespace NUnit.Extension.DependencyInjection.Tests
     public void Ctor_throws_foo_when_no_public_noargs_constructor_is_present()
     {
       Assert.That(
-        () => new NUnitTypeInjectionFactoryAttribute(typeof(InvalidIocContainer)), 
+        () => new NUnitTypeInjectionFactoryAttribute(typeof(InvalidInjectionFactory)), 
         Throws.InstanceOf<ArgumentOutOfRangeException>()
           .With.Message.Match("public no-args constructor")
         );
     }
     
-    internal class InvalidIocContainer : IIocContainer
+    internal class InvalidInjectionFactory : IInjectionFactory
     {
       public static Func<Type, object> FactoryFunc = null;
 
-      public InvalidIocContainer(object badDependency)
+      public InvalidInjectionFactory(object badDependency)
       {
       }
-      
+
+      /// <inheritdoc />
+      public void Initialize(ITypeDiscoverer typeDiscoverer)
+      {
+      }
+
       /// <inheritdoc />
       public object Create(Type type)
       {

@@ -17,7 +17,7 @@ namespace NUnit.Extension.DependencyInjection
       if (factoryType == null)
       {
         throw new ArgumentNullException(
-          $"{nameof(factoryType)} specified as {nameof(IIocContainer)} on " +
+          $"{nameof(factoryType)} specified as {nameof(IInjectionFactory)} on " +
           $"{nameof(NUnitTypeInjectionFactoryAttribute)} cannot be null."
         );
       }
@@ -32,7 +32,7 @@ namespace NUnit.Extension.DependencyInjection
       {
         throw new ArgumentOutOfRangeException(
           nameof(factoryType),
-          $"{factoryType.FullName} specified as {nameof(IIocContainer)} on " +
+          $"{factoryType.FullName} specified as {nameof(IInjectionFactory)} on " +
           $"{nameof(NUnitTypeInjectionFactoryAttribute)} must have a public no-args constructor."
         );
       }
@@ -40,11 +40,11 @@ namespace NUnit.Extension.DependencyInjection
 
     internal static void AssertImplementsProperInterface(Type factoryType)
     {
-      if (!typeof(IIocContainer).IsAssignableFrom(factoryType))
+      if (!typeof(IInjectionFactory).IsAssignableFrom(factoryType))
       {
         throw new ArgumentOutOfRangeException(
           $"{nameof(factoryType)} specified on {nameof(NUnitTypeInjectionFactoryAttribute)} " +
-          $"must be of type {nameof(IIocContainer)}."
+          $"must be of type {nameof(IInjectionFactory)}."
         );
       }
     }

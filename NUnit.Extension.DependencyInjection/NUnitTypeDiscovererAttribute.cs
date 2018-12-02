@@ -5,13 +5,13 @@ namespace NUnit.Extension.DependencyInjection
   [AttributeUsage(AttributeTargets.Assembly)]
   public class NUnitTypeDiscovererAttribute : Attribute
   {
-    public Type[] TypeDiscovererTypes { get; }
+    public Type TypeDiscovererType { get; }
 
-    public NUnitTypeDiscovererAttribute(params Type[] typeDiscovererTypes)
+    public NUnitTypeDiscovererAttribute(Type typeDiscovererType)
     {
-      TypeDiscovererValidator.AssertAreValidDiscovererTypes(typeDiscovererTypes);
+      TypeDiscovererTypeValidator.AssertIsValidDiscovererType(typeDiscovererType);
 
-      TypeDiscovererTypes = typeDiscovererTypes;
+      TypeDiscovererType = typeDiscovererType;
     }
   }
 }

@@ -24,10 +24,15 @@ namespace NUnit.Extension.DependencyInjection.Tests
   [TestFixture]
   public class DependencyInjectingTestFixtureAttributeTests
   {
-    internal class ValidIocContainer : IIocContainer
+    internal class ValidInjectionFactory : IInjectionFactory
     {
       public static Func<Type, object> FactoryFunc = null;
-      
+
+      /// <inheritdoc />
+      public void Initialize(ITypeDiscoverer typeDiscoverer)
+      {
+      }
+
       /// <inheritdoc />
       public object Create(Type type)
       {
@@ -35,11 +40,19 @@ namespace NUnit.Extension.DependencyInjection.Tests
       }
     }
 
+    internal class ValidTypeDiscoverer : ITypeDiscoverer
+    {
+      /// <inheritdoc />
+      public void Discover(object container)
+      {
+      }
+    }
+
     [Test]
     public void Ctor_throws_nothing_if_no_arguments_provided()
     {
       Assert.That(
-        () => new DependencyInjectingTestFixtureAttribute(null),
+        () => new DependencyInjectingTestFixtureAttribute(),
         Throws.Nothing
         );
     }
@@ -47,7 +60,7 @@ namespace NUnit.Extension.DependencyInjection.Tests
     [Test]
     public void BuildFrom_throws_an_ArgumentOutOfRangeException_if_factoryType_does_not_implement_IInjectionFactory()
     {
-      var attr = new DependencyInjectingTestFixtureAttribute(typeof(IEnumerable));
+      var attr = new DependencyInjectingTestFixtureAttribute(typeof(IEnumerable), typeof(ValidTypeDiscoverer));
       Assert.That(
         () => attr.BuildFrom(new TypeWrapper(typeof(IEnumerable))),
         Throws.InstanceOf<ArgumentOutOfRangeException>()
@@ -57,9 +70,9 @@ namespace NUnit.Extension.DependencyInjection.Tests
     [Test]
     public void BuildFrom_does_not_throw_for_valid_type_implementing_IInjectionFactory()
     {
-      var attr = new DependencyInjectingTestFixtureAttribute(typeof(ValidIocContainer));
+      var attr = new DependencyInjectingTestFixtureAttribute(typeof(ValidInjectionFactory), typeof(ValidTypeDiscoverer));
       Assert.That(
-        () => attr.BuildFrom(new TypeWrapper(typeof(ValidIocContainer))),
+        () => attr.BuildFrom(new TypeWrapper(typeof(ValidInjectionFactory))),
         Throws.Nothing
         );
     }
@@ -68,8 +81,8 @@ namespace NUnit.Extension.DependencyInjection.Tests
     [TestCase(typeof(TestWithTwoObjectDependency))]
     public void BuildFrom_returns_a_single_TestSuite_named_after_the_test_class(Type type)
     {
-      ValidIocContainer.FactoryFunc = t => new object();
-      var attr = new DependencyInjectingTestFixtureAttribute(typeof(ValidIocContainer));
+      ValidInjectionFactory.FactoryFunc = t => new object();
+      var attr = new DependencyInjectingTestFixtureAttribute(typeof(ValidInjectionFactory), typeof(ValidTypeDiscoverer));
       var suite = attr.BuildFrom(new TypeWrapper(type));
       Assert.That(suite, Is.Not.Null);
       Assert.That(suite.Count(), Is.EqualTo(1));

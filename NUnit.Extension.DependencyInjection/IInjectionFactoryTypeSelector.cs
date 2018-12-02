@@ -2,7 +2,7 @@
 
 namespace NUnit.Extension.DependencyInjection
 {
-  public interface IInjectionTypeSelector
+  public interface IInjectionFactoryTypeSelector
   {
     Type GetInjectionType();
   }

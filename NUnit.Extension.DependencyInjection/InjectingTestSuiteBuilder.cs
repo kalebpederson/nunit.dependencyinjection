@@ -12,23 +12,28 @@ namespace NUnit.Extension.DependencyInjection
   {
     private static readonly IPreFilter EmptyPreFilter = new AlwaysTruePreFilter();
 
-    private readonly Lazy<IIocContainer> _lazyInjectionFactory;
+    private readonly Lazy<IInjectionFactory> _lazyInjectionFactory;
     private readonly NUnitTestFixtureBuilder _builder = new NUnitTestFixtureBuilder();
 
     public InjectingTestSuiteBuilder(
-      IInjectionTypeSelector injectionTypeSelector
+      IInjectionFactoryTypeSelector injectionFactoryTypeSelector,
+      ITypeDiscovererTypeSelector typeDiscovererTypeSelector
       )
     {
-      _lazyInjectionFactory = new Lazy<IIocContainer>(
-        () => CreateInjectionFactoryFromType(injectionTypeSelector.GetInjectionType()),
+      _lazyInjectionFactory = new Lazy<IInjectionFactory>(
+        () =>
+        {
+          var factory = CreateInjectionFactoryFromType(injectionFactoryTypeSelector.GetInjectionType());
+          factory.Initialize(CreateTypeDiscovererFromType(typeDiscovererTypeSelector.GetTypeDiscovererType()));
+          return factory;
+        },
+
         true);
     }
 
     /// <inheritdoc />
     public IEnumerable<TestSuite> Build(ITypeInfo typeInfo)
     {
-      // FIXME: this class should be responsible for orchestrating the different arguments
-      // and parameters but not doing the actual work.
       return CreateTestSuite(typeInfo, GetParametersFor(typeInfo.Type).FirstOrDefault());
     }
 
@@ -37,19 +42,35 @@ namespace NUnit.Extension.DependencyInjection
       return new InjectionArgsSource(t => _lazyInjectionFactory.Value.Create(t), sourceType);
     }
 
-    private static IIocContainer CreateInjectionFactoryFromType(Type injectionFactoryType)
+    private static IInjectionFactory CreateInjectionFactoryFromType(Type injectionFactoryType)
     {
       try
       {
-        return (IIocContainer) Reflect.Construct(injectionFactoryType);
+        return (IInjectionFactory) Reflect.Construct(injectionFactoryType);
       }
       catch (Exception ex)
       {
         throw new ArgumentException(
-          $"Unable to create injection factory of type {injectionFactoryType.FullName}", ex
+          $"Unable to create {typeof(IInjectionFactory)} of type {injectionFactoryType.FullName}", ex
         );
       }
     }
+
+    private static ITypeDiscoverer CreateTypeDiscovererFromType(Type typeDiscovererType)
+    {
+      try
+      {
+        return (ITypeDiscoverer) Reflect.Construct(typeDiscovererType);
+      }
+      catch (Exception ex)
+      {
+        throw new ArgumentException(
+          $"Unable to create {typeof(ITypeDiscoverer).FullName} of type {typeDiscovererType.FullName}", ex
+        );
+      }
+    }
+    
+
     
     /// <summary>
     /// Returns a set of <see cref="ITestFixtureData"/> items for use as arguments

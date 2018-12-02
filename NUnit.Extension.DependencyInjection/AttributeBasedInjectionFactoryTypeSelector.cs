@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace NUnit.Extension.DependencyInjection
 {
-  public class AttributeBasedInjectionTypeSelector : IInjectionTypeSelector
+  public class AttributeBasedInjectionFactoryTypeSelector : IInjectionFactoryTypeSelector
   {
     /// <inheritdoc />
     public Type GetInjectionType()
@@ -24,7 +24,7 @@ namespace NUnit.Extension.DependencyInjection
       {
         throw new InvalidOperationException(
           $"{nameof(DependencyInjectingTestFixtureAttribute)} requires an injection plugin be loaded. Please ensure " +
-          $"that one is present or create one using the {typeof(IIocContainer).FullName} interface " +
+          $"that one is present or create one using the {typeof(IInjectionFactory).FullName} interface " +
           $"and register it using the {typeof(NUnitTypeInjectionFactoryAttribute).FullName} attribute.");
       }
       InjectionFactoryTypeValidator.AssertIsValidFactoryType(injectionFactoryAttribute.InjectionFactoryType);

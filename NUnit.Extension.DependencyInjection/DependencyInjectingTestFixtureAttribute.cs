@@ -10,19 +10,26 @@ namespace NUnit.Extension.DependencyInjection
     {
     }
 
-    public DependencyInjectingTestFixtureAttribute(Type type)
-      : base(StaticTypeBasedTestSuiteBuilderFactory(type))
+    public DependencyInjectingTestFixtureAttribute(Type injectionFactoryType, Type typeSelectorType)
+      : base(StaticTypeBasedTestSuiteBuilderFactory(injectionFactoryType, typeSelectorType))
     {
     }
 
-    private static Func<IInjectingTestSuiteBuilder> StaticTypeBasedTestSuiteBuilderFactory(Type type)
+    private static Func<IInjectingTestSuiteBuilder> StaticTypeBasedTestSuiteBuilderFactory(
+      Type injectionFactoryType, Type typeSelectorType
+      )
     {
-      return () => new InjectingTestSuiteBuilder(new StaticInjectionTypeSelector(type));
+      return () => new InjectingTestSuiteBuilder(
+        new StaticInjectionFactoryTypeSelector(injectionFactoryType), 
+        new StaticTypeDiscovererTypeSelector(typeSelectorType));
     }
 
     private static IInjectingTestSuiteBuilder AttributeBasedTestSuiteBuilderFactory()
     {
-      return new InjectingTestSuiteBuilder(new AttributeBasedInjectionTypeSelector());
+      return new InjectingTestSuiteBuilder(
+        new AttributeBasedInjectionFactoryTypeSelector(),
+        new AttributeBasedTypeDiscovererTypeSelector()
+        );
     }
   }
 }

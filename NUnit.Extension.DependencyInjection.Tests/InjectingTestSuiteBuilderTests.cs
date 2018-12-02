@@ -11,9 +11,12 @@ namespace NUnit.Extension.DependencyInjection.Tests
     {
       var i = 0;
       var objects = new [] {new object(), new object()};
-      DependencyInjectingTestFixtureAttributeTests.ValidIocContainer.FactoryFunc = t => objects[i++ % 2];
+      DependencyInjectingTestFixtureAttributeTests.ValidInjectionFactory.FactoryFunc = t => objects[i++ % 2];
       var attr = new InjectingTestSuiteBuilder(
-        new StaticInjectionTypeSelector(typeof(DependencyInjectingTestFixtureAttributeTests.ValidIocContainer))
+        new StaticInjectionFactoryTypeSelector(
+          typeof(DependencyInjectingTestFixtureAttributeTests.ValidInjectionFactory)), 
+        new StaticTypeDiscovererTypeSelector(
+          typeof(DependencyInjectingTestFixtureAttributeTests.ValidTypeDiscoverer))
         );
       var suite = attr.GetParametersFor(typeof(TestWithTwoObjectDependency));
       Assert.That(suite, Is.Not.Null);
