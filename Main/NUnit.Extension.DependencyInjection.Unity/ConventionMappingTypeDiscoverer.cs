@@ -13,7 +13,7 @@ namespace NUnit.Extension.DependencyInjection.Unity
       {
         container.RegisterTypes(
           AppDomain.CurrentDomain.GetAssemblies()
-            .Where(a => a.GetCustomAttributes(typeof(ScanInContainerAttribute), true).Any())
+            .Where(a => a.GetCustomAttributes(typeof(NUnitAutoScanAssemblyAttribute), true).Any())
             .SelectMany(x => x.GetTypes()),
           WithMappings.FromMatchingInterface,
           WithName.Default,

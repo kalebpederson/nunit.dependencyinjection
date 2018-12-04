@@ -2,27 +2,31 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;net46;net47;netstandard20</TargetFrameworks>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <Authors>Kaleb Pederson</Authors>
     <Company>Kaleb Pederson Software LLC</Company>
-    <Description>Enables dependency injection within NUnit. Dependency injection support is container specific and provided by separate NuGet packages.</Description>
+    <Description>Enables dependency injection within NUnit using the Unity inversion of control container.</Description>
     <Copyright>Kaleb Pederson Software LLC</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/kalebpederson/nunit.dependencyinjection</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kalebpederson/nunit.dependencyinjection</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>nunit dependency-injection</PackageTags>
+    <PackageTags>nunit dependency-injection unity</PackageTags>
     <IsTestProject>false</IsTestProject>
-    <AssemblyVersion>0.2.0.0</AssemblyVersion>
-    <FileVersion>0.2.0.0</FileVersion>
+    <AssemblyVersion>0.3.0.0</AssemblyVersion>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net46' OR '$(TargetFramework)' == 'net47'">
     <DefineConstants>NETFULL</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="Unity.Container" Version="5.8.11" />
+    <PackageReference Include="Unity.RegistrationByConvention" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NUnit.Extension.DependencyInjection\NUnit.Extension.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>
