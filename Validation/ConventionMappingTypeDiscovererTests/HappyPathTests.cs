@@ -6,7 +6,7 @@ using NUnit.Framework;
 [assembly: NUnitTypeDiscoverer(typeof(ConventionMappingTypeDiscoverer))]
 [assembly: NUnitAutoScanAssembly]
 
-namespace NUnit.Extension.DependencyInjection.Unity.IntegrationTests
+namespace ConventionMappingTypeDiscovererTests
 {
   public interface IDoStuff {}
 
@@ -26,7 +26,6 @@ namespace NUnit.Extension.DependencyInjection.Unity.IntegrationTests
 
     public IDoStuff DoStuff { get; }
   }
-
 
   [DependencyInjectingTestFixture]
   public class HappyPathTests
