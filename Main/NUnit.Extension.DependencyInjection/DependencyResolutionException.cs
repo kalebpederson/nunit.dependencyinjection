@@ -6,6 +6,10 @@ using System.Runtime.Serialization;
 
 namespace NUnit.Extension.DependencyInjection
 {
+  /// <summary>
+  /// Exception thrown when an error occurs attempting to resolve a dependency that
+  /// needed to be injected into a test fixture.
+  /// </summary>
 #if NETFULL
   [Serializable]
 #endif

@@ -5,6 +5,27 @@ using System.Runtime.CompilerServices;
 
 namespace NUnit.Extension.DependencyInjection
 {
+  /// <summary>
+  /// Attribute by which the <see cref="IInjectionFactoryTypeSelector"/> is chosen. When this
+  /// attribute is applied to the assembly all loaded assemblies for the current <see
+  /// cref="AppDomain"/> are scanned for this assembly and the <b>first</b> discovered one
+  /// is used to determine the injection factory to be used.
+  /// </summary>
+  /// <exception cref="InvalidOperationException">
+  /// Thrown when no <see cref="NUnitTypeInjectionFactoryAttribute"/> is found among the
+  /// loaded assemblies.
+  /// </exception>
+  /// <exception cref="ArgumentNullException">
+  /// Thrown when the type returned by
+  /// <see cref="NUnitTypeInjectionFactoryAttribute.InjectionFactoryType" />
+  /// is null.
+  /// </exception>
+  /// <exception cref="ArgumentOutOfRangeException">
+  /// Thrown when the type returned by
+  /// <see cref="NUnitTypeInjectionFactoryAttribute.InjectionFactoryType" />
+  /// does not implement <see cref="IInjectionFactory"/> or does not have a public
+  /// no-args constructor.
+  /// </exception>
   public class AttributeBasedInjectionFactoryTypeSelector : IInjectionFactoryTypeSelector
   {
     /// <inheritdoc />
