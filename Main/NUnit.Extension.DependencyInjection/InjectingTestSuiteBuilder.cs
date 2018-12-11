@@ -70,8 +70,6 @@ namespace NUnit.Extension.DependencyInjection
       }
     }
     
-
-    
     /// <summary>
     /// Returns a set of <see cref="ITestFixtureData"/> items for use as arguments
     /// to a parameterized test fixture.
@@ -80,7 +78,6 @@ namespace NUnit.Extension.DependencyInjection
     /// <returns>Parameters needed to create the test fixture.</returns>
     protected internal virtual IEnumerable<ITestFixtureData> GetParametersFor(Type sourceType)
     {
-      // FIXME: I need to move this method out to another class, something that
       var source = GetTestFixtureSource(sourceType);
       var injectionParameters = source.GetInjectionParameters();
       return new [] {

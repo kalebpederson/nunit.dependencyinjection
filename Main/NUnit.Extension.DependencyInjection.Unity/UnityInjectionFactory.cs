@@ -31,8 +31,6 @@ namespace NUnit.Extension.DependencyInjection.Unity
     /// <inheritdoc />
     public void Initialize(ITypeDiscoverer typeDiscoverer)
     {
-      // FIXME ? : I don't like the temporal coupling of initializer methods
-      
       // NOTE: although the IUnityContainer is disposable, this should be
       // the global instance and it should not be disposed of at this point.
       typeDiscoverer.Discover(_lazyContainer.Value);
