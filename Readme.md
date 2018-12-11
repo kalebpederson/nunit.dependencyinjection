@@ -10,10 +10,13 @@ SDKs to the system under test. This framework is intended to support these
 scenarios.
 
 # Warning
-Good unit tests shouldn't need dependency injection. If you need dependency
-injection in unit tests then consider whether the design of the system needs
-to change. From here on out it is assumed that the purpose for dependency
-injection within tests has been validated and is appropriate.
+Good unit tests shouldn't need to inject dependencies into the test fixture.
+If you need dependency injection into a test fixture in unit tests then
+consider whether the design of the system could be changed in such a way that
+the system under test can be easily unit tested without that need.
+
+From here on out it is assumed that the purpose for dependency injection
+within tests has been validated and is appropriate.
 
 # API Stability
 In accordance with semantic versioning, all versions prior to 1.0 are assumed
@@ -23,6 +26,14 @@ pre-releases and are **NOT** subject to API/ABI compatibility.
 
 The below is **subject to change at our whims until version 1.0**. For a
 working example see the different test projects in the Validation folder.
+
+Two different mechanisms are currently provided by which dependencies are
+discovered:
+
+1. Convention based assembly scanning and registration of types
+1. Explicit registration of dependencies via the `IIocRegistrar`
+
+These approaches are described below.
 
 ## Convention Based Type Discovery
 
