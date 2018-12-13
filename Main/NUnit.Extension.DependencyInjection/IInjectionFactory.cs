@@ -7,7 +7,6 @@ namespace NUnit.Extension.DependencyInjection
   /// </summary>
   public interface IInjectionFactory
   {
-    // TODO: Should I Move to a separate interface, like IInjectionFactoryInitializer?
     /// <summary>
     /// Initializes the injection factory. This method will be called once after creation
     /// of the factory.
@@ -23,7 +22,6 @@ namespace NUnit.Extension.DependencyInjection
     /// </param>
     void Initialize(ITypeDiscoverer typeDiscoverer);
 
-    // TODO: Should throw an exception that can be expected by any implementations.
     /// <summary>
     /// Method used to create the type being injected into a test fixture.
     /// </summary>
@@ -32,6 +30,11 @@ namespace NUnit.Extension.DependencyInjection
     /// <exception cref="Exception">
     /// Thrown when an error occurs creating the requested dependency.
     /// </exception>
+    /// <remarks>
+    /// Implementations of this class may throw any reasonable type of exception as they
+    /// will be caught and wrapped by the <see cref="IInjectionFactory"/>, resulting in
+    /// a <see cref="DependencyResolutionException"/> being thrown to the caller.
+    /// </remarks>
     object Create(Type type);
   }
 }
