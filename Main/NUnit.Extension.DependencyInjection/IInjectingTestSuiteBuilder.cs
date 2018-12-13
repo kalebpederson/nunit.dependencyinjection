@@ -8,6 +8,11 @@ namespace NUnit.Extension.DependencyInjection
   /// Interface used to create the test suite or suites on which dependency
   /// injection will be performed if necessary.
   /// </summary>
+  /// <remarks>
+  /// This interface is largely the dependency injection workhorse, providing
+  /// the functionality necessary to create a test suite, and thereby the
+  /// instance of the test fixture, while injecting necessary parameters.
+  /// </remarks>
   public interface IInjectingTestSuiteBuilder
   {
     /// <summary>

@@ -3,8 +3,21 @@ using System.Reflection;
 
 namespace NUnit.Extension.DependencyInjection
 {
+  /// <summary>
+  /// Provides a means of validating that the injection type is valid.
+  /// </summary>
   public static class InjectionFactoryTypeValidator
   {
+    /// <summary>
+    /// Validates that the injection type is valid. In other words,
+    /// that the following conditions are met:
+    /// <list type="bullet">
+    /// <item><paramref name="factoryType"/> is not null</item>
+    /// <item>The type implements the <see cref="IInjectionFactory"/> interface</item>
+    /// <item>The type has a public no-args constructor</item>
+    /// </list>
+    /// </summary>
+    /// <param name="factoryType">The factory type to be validated.</param>
     public static void AssertIsValidFactoryType(Type factoryType)
     {
       AssertIsNotNull(factoryType);
