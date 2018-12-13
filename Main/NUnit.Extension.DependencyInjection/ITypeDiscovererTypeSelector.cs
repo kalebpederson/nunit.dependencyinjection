@@ -13,6 +13,11 @@ namespace NUnit.Extension.DependencyInjection
     /// Identifies the type of the <see cref="ITypeDiscoverer"/>.
     /// </summary>
     /// <returns>The type of the <see cref="ITypeDiscoverer"/>.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when when the application is not properly configured for
+    /// type discovery, such as when no <see
+    /// cref="NUnitTypeDiscovererAttribute"/> is present.
+    /// </exception> 
     Type GetTypeDiscovererType();
   }
 }
