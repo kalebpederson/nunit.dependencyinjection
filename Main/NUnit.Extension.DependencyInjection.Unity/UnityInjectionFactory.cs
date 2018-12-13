@@ -5,10 +5,11 @@ using Unity;
 namespace NUnit.Extension.DependencyInjection.Unity
 {
   /// <summary>
-  /// This class is usually referenced through the <see
-  /// cref="NUnitTypeInjectionFactoryAttribute"/> as a means of specifying
-  /// the concrete type that should be used to create the instances which
-  /// are injected into the test classes.
+  /// This class is an <see cref="IInjectionFactory"/> referenced through the
+  /// <see cref="NUnitTypeInjectionFactoryAttribute"/> as a means of specifying
+  /// the concrete type that is used to create the instances which are 
+  /// injected into test fixtures decorated with the <see
+  /// cref="DependencyInjectingTestFixtureAttribute"/>.
   /// </summary>
   /// <example>
   /// [assembly: NUnitTypeInjectionFactory(typeof(UnityIocContainer))]
@@ -17,12 +18,31 @@ namespace NUnit.Extension.DependencyInjection.Unity
   {
     private readonly Lazy<IUnityContainer> _lazyContainer;
 
+    /// <summary>
+    /// Creates an instance of the <see cref="UnityInjectionFactory"/> configured
+    /// to use a singleton <see cref="UnityContainer"/>.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public UnityInjectionFactory()
     {
       _lazyContainer = new Lazy<IUnityContainer>(() => Singleton<UnityContainer>.Instance, true);
     }
 
+    /// <summary>
+    /// <para>
+    /// Creates an instance of the <see cref="UnityInjectionFactory"/> configured
+    /// to use the <paramref name="lazyContainer"/> function to create the container
+    /// that will be used to resolve the parameters to the test fixtures.
+    /// </para>
+    /// <para>
+    /// The <paramref name="lazyContainer"/> instance will be called once to create
+    /// the container. All subsequent calls to the injection factory will use the
+    /// previously created instance of the container.
+    /// </para>
+    /// </summary>
+    /// <param name="lazyContainer">
+    /// The factory function used to create the container.
+    /// </param>
     public UnityInjectionFactory(Func<IUnityContainer> lazyContainer)
     {
       _lazyContainer = new Lazy<IUnityContainer>(lazyContainer, true);

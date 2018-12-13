@@ -28,12 +28,81 @@ The below is **subject to change at our whims until version 1.0**. For a
 working example see the different test projects in the Validation folder.
 
 Two different mechanisms are currently provided by which dependencies are
-discovered:
+discovered, though custom processes can be added as well:
 
-1. Convention based assembly scanning and registration of types
 1. Explicit registration of dependencies via the `IIocRegistrar`
+1. Convention based assembly scanning and registration of types
 
 These approaches are described below.
+
+## IIocRegistrar Based Type Discovery
+
+When many different assemblies are present it can become difficult to
+automatically register all interfaces with their corresponding concrete types.
+Or, perhaps we prefer that everything be manually registered to make the
+process and choice very explicit. The example below demonstrates that process:
+
+```csharp
+// First import the following NuGet packages: 
+// * NUnit.Extension.DependencyInjection
+// * NUnit.Extension.DependencyInjection.Unity
+
+using NUnit.Extension.DependencyInjection;
+using NUnit.Extension.DependencyInjection.Unity;
+
+// tell the extension that we will be using the Microsoft Unity Injection
+// factory
+[assembly: NUnitTypeInjectionFactory(typeof(UnityInjectionFactory))]
+
+// If we want to manually register the different types we need to create
+// one or more implementations of IIocRegistrar that register with the
+// container and then use the IocRegistrarTypeDiscoverer.
+[assembly: NUnitTypeDiscoverer(typeof(IocRegistrarTypeDiscoverer))]
+
+// The registrar above will look for implementations of IIocRegistrar,
+// which the RegistrarBase class implements, and then execute the
+// specified registrations:
+public class MyRegistrar : RegistrarBase<IUnityContainer>
+{
+  protected override void RegisterInternal(IUnityContainer container)
+  {
+    container.RegisterType<IDependency1, Dependency1>();
+    container.RegisterType<IDependency2, Dependency2>();
+  }
+}
+
+// Loaded assemblies are scanned for interfaces and corresponding concrete
+// definitions. For example:
+public interface IDependency1 {}
+public interface IDependency2 {}
+
+public class Dependency1 : IDependency1 { }
+
+// Instead of using the [TestFixture] attribute when declaring a test class
+// you'll need to decorate the class with a DependencyInjectingTestFixture
+// attribute:
+[NUnit.Extension.DependencyInjection.DependencyInjectingTestFixture]
+public class MyTests
+{
+  private readonly IDependency1 _dependency1;
+  private readonly IDependency2 _dependency2;
+
+  // once everything is properly configured, dependencies can be injected
+  // directly into the constructor
+  public MyTests(IDependency1 dependency1, IDependency2 dependency2)
+  {
+    _dependency1 = dependency1;
+    _dependency2 = dependency2;
+  }
+
+  [Test]
+  public void Test_something_using_IDependency1()
+  {
+    Assert.That(_dependency1, Is.Not.Null);
+    Assert.That(_dependency1, Is.InstanceOf<Dependency1>());
+  }
+}
+```
 
 ## Convention Based Type Discovery
 
@@ -97,75 +166,6 @@ public class MyTests
 }
 ```
 
-## IIocRegistrar Based Type Discovery
-
-When many different assemblies are present it can become difficult to
-automatically register all interfaces with their corresponding concrete types.
-Or, perhaps we prefer that everything be manually registered to make the
-process and choice very explicit. The example below demonstrates that process:
-
-```csharp
-// First import the following NuGet packages: 
-// * NUnit.Extension.DependencyInjection
-// * NUnit.Extension.DependencyInjection.Unity
-
-using NUnit.Extension.DependencyInjection;
-using NUnit.Extension.DependencyInjection.Unity;
-
-// tell the extension that we will be using the Microsoft Unity Injection
-// factory
-[assembly: NUnitTypeInjectionFactory(typeof(UnityInjectionFactory))]
-
-
-// If we want to manually register the different types we need to create
-// one or more implementations of IIocRegistrar that register with the
-// container and then use the IocRegistrarTypeDiscoverer.
-[assembly: NUnitTypeDiscoverer(typeof(IocRegistrarTypeDiscoverer))]
-
-// The registrar above will look for implementations of IIocRegistrar,
-// which the RegistrarBase class implements, and then execute the
-// specified registrations:
-public class MyRegistrar : RegistrarBase<IUnityContainer>
-{
-  protected override void RegisterInternal(IUnityContainer container)
-  {
-    container.RegisterType<IDependency1, Dependency1>();
-    container.RegisterType<IDependency2, Dependency2>();
-  }
-}
-
-// Loaded assemblies are scanned for interfaces and corresponding concrete
-// definitions. For example:
-public interface IDependency1 {}
-public interface IDependency2 {}
-
-public class Dependency1 : IDependency1 { }
-
-// Instead of using the [TestFixture] attribute when declaring a test class
-// you'll need to decorate the class with a DependencyInjectingTestFixture
-// attribute:
-[NUnit.Extension.DependencyInjection.DependencyInjectingTestFixture]
-public class MyTests
-{
-  private readonly IDependency1 _dependency1;
-  private readonly IDependency2 _dependency2;
-
-  // once everything is properly configured, dependencies can be injected
-  // directly into the constructor
-  public MyTests(IDependency1 dependency1, IDependency2 dependency2)
-  {
-    _dependency1 = dependency1;
-    _dependency2 = dependency2;
-  }
-
-  [Test]
-  public void Test_something_using_IDependency1()
-  {
-    Assert.That(_dependency1, Is.Not.Null);
-    Assert.That(_dependency1, Is.InstanceOf<Dependency1>());
-  }
-}
-```
 
 # Troubleshooting
 

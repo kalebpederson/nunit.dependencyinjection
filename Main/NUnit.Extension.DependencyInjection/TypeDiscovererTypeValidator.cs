@@ -3,8 +3,32 @@ using System.Reflection;
 
 namespace NUnit.Extension.DependencyInjection
 {
+  /// <summary>
+  /// Provides validation of type discoverer types.
+  /// </summary>
   public static class TypeDiscovererTypeValidator
   {
+    /// <summary>
+    /// Validates that the <paramref name="discovererType"/> is valid.
+    /// Or, in other words, that the following conditions are met:
+    /// <list type="bullet">
+    /// <item><paramref name="discovererType"/> is not null.</item>
+    /// <item>Type implements the <see cref="ITypeDiscoverer"/> interface.</item>
+    /// <item>Type has a public no-args constructor.</item>
+    /// </list>
+    /// </summary>
+    /// <param name="discovererType">The type to be validated.</param>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown when <paramref name="discovererType"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="discovererType"/> does not
+    /// implement <see cref="ITypeDiscoverer"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="discovererType"/> does not
+    /// have a public no-args constructor.
+    /// </exception> 
     public static void AssertIsValidDiscovererType(Type discovererType)
     {
       AssertIsNotNull(discovererType);

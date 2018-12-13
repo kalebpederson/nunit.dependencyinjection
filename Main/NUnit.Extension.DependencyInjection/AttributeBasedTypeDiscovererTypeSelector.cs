@@ -4,6 +4,12 @@ using System.Linq;
 
 namespace NUnit.Extension.DependencyInjection
 {
+  /// <summary>
+  /// Discovers the <see cref="ITypeDiscoverer"/> that will be used to identify and
+  /// register types with the inversion of control container. It does so based on
+  /// the presence of the <see cref="NUnitTypeDiscovererAttribute"/> and its
+  /// corresponding constructor parameter.
+  /// </summary>
   public class AttributeBasedTypeDiscovererTypeSelector : ITypeDiscovererTypeSelector
   {
     /// <inheritdoc />
@@ -19,7 +25,6 @@ namespace NUnit.Extension.DependencyInjection
           $"The {typeof(ITypeDiscoverer).FullName} registered requires the presence of at least one type " +
           $"discoverer but none were found.");
       }
-      TypeDiscovererTypeValidator.AssertIsValidDiscovererType(typeDiscovererAttribute.TypeDiscovererType);
       Trace.TraceInformation(
         $"Found {nameof(NUnitTypeDiscovererAttribute)} in assembly " +
         $"{typeDiscovererAttribute.GetType().Assembly.FullName}. Will use the type discoverer of type " +
