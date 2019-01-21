@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -44,7 +47,7 @@ namespace NUnit.Extension.DependencyInjection
       if (injectionFactoryAttribute == null)
       {
         throw new InvalidOperationException(
-          $"{nameof(DependencyInjectingTestFixtureAttribute)} requires an injection plugin be loaded. Please ensure " +
+          $"{nameof(DependencyInjectingBaseTestFixtureAttribute)} requires an injection plugin be loaded. Please ensure " +
           $"that one is present or create one using the {typeof(IInjectionFactory).FullName} interface " +
           $"and register it using the {typeof(NUnitTypeInjectionFactoryAttribute).FullName} attribute.");
       }

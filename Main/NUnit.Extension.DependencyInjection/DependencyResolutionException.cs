@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 
 #if NETFULL
 using System.Runtime.Serialization;
@@ -18,15 +21,15 @@ namespace NUnit.Extension.DependencyInjection
     /// <summary>
     /// The type of class on which dependency injection was being performed.
     /// </summary>
-    public Type InjectionClassType {get; }
-    
+    public Type InjectionClassType { get; }
+
     /// <summary>
     /// The type of parameter being injected into the <see cref="InjectionClassType"/> class.
     /// </summary>
-    public Type InjectionParameterType {get; }
+    public Type InjectionParameterType { get; }
 
     /// <inheritdoc />
-    public DependencyResolutionException(Type injectionClassType, Type injectionParameterType, Exception innerException) 
+    public DependencyResolutionException(Type injectionClassType, Type injectionParameterType, Exception innerException)
       : base(FormatMessage(injectionClassType, injectionParameterType), innerException)
     {
       InjectionClassType = injectionClassType;
@@ -41,12 +44,12 @@ namespace NUnit.Extension.DependencyInjection
 
 #if NETFULL
     /// <inheritdoc />
-    protected DependencyResolutionException(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected DependencyResolutionException(SerializationInfo info, StreamingContext context)
+      : base(info, context)
     {
       InjectionClassType = (Type)info.GetValue(nameof(InjectionClassType), typeof(Type));
       InjectionParameterType = (Type)info.GetValue(nameof(InjectionParameterType), typeof(Type));
     }
 #endif
-
   }
 }

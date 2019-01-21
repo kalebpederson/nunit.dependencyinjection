@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 using System.Linq;
 using NUnit.Framework;
 using Unity;
@@ -8,9 +11,11 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
   [TestFixture]
   public class IocRegistrarTypeDiscovererTests
   {
-    public class TestingNestedClass {}
+    private class TestingNestedClass
+    {
+    }
 
-    public class ActionInvokingRegistrar : RegistrarBase<IUnityContainer>
+    private class ActionInvokingRegistrar : RegistrarBase<IUnityContainer>
     {
       private readonly Action<IUnityContainer> _action;
 
@@ -26,7 +31,7 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
       }
     }
 
-    public class CallTrackingRegistrar : RegistrarBase<IUnityContainer>
+    private class CallTrackingRegistrar : RegistrarBase<IUnityContainer>
     {
       public static int RegisterCallCount { get; set; }
 
@@ -40,53 +45,56 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
     [Test]
     public void Discover_resolves_the_available_registrars()
     {
-      var container = new UnityContainer();
-      var callCount = 0;
-
-      void RegistrationAction(IUnityContainer c)
+      using (var container = new UnityContainer())
       {
-        callCount++;
-        c.RegisterType<TestingNestedClass>();
-      }
+        var callCount = 0;
 
-      container.RegisterInstance((Action<IUnityContainer>) RegistrationAction);
-      var discoverer = new IocRegistrarTypeDiscoverer();
-      discoverer.Discover(container);
-      Assert.That(callCount, Is.EqualTo(1));
-      Assert.That(
-        container.Registrations.Any(r => r.RegisteredType == typeof(TestingNestedClass)),
-        Is.True,
-        $"Expected the registration action to be called and have registered the {typeof(TestingNestedClass).FullName} type."
-      );
+        void RegistrationAction(IUnityContainer c)
+        {
+          callCount++;
+          c.RegisterType<TestingNestedClass>();
+        }
+
+        container.RegisterInstance((Action<IUnityContainer>) RegistrationAction);
+        var discoverer = new IocRegistrarTypeDiscoverer();
+        discoverer.Discover(container);
+        Assert.That(callCount, Is.EqualTo(1));
+        Assert.That(
+          container.Registrations.Any(r => r.RegisteredType == typeof(TestingNestedClass)),
+          Is.True,
+          $"Expected the registration action to be called and have registered the {typeof(TestingNestedClass).FullName} type.");
+      }
     }
 
     [Test]
     public void Discover_calls_the_CallTrackingRegistrar_Register_method()
     {
-      var container = new UnityContainer();
-      var callCount = 0;
-      void RegistrationAction(IUnityContainer c) { callCount++; }
+      using (var container = new UnityContainer())
+      {
+        var callCount = 0;
+        void RegistrationAction(IUnityContainer c) => callCount++;
 
-      container.RegisterInstance((Action<IUnityContainer>) RegistrationAction);
-      var discoverer = new IocRegistrarTypeDiscoverer();
-      discoverer.Discover(container);
+        container.RegisterInstance((Action<IUnityContainer>)RegistrationAction);
+        var discoverer = new IocRegistrarTypeDiscoverer();
+        discoverer.Discover(container);
 
-      Assert.That(CallTrackingRegistrar.RegisterCallCount, Is.GreaterThan(0));
+        Assert.That(CallTrackingRegistrar.RegisterCallCount, Is.GreaterThan(0));
+      }
     }
 
     [Test]
     public void Discover_throws_TypeDiscoveryException_on_registrar_error()
     {
-      var container = new UnityContainer();
+      using (var container = new UnityContainer())
+      {
+        void RegistrationAction(IUnityContainer c) => throw new Exception("Failed!");
 
-      void RegistrationAction(IUnityContainer c) { throw new Exception("Failed!");}
-
-      container.RegisterInstance((Action<IUnityContainer>) RegistrationAction);
-      var discoverer = new IocRegistrarTypeDiscoverer();
-      Assert.That(
-        () => discoverer.Discover(container),
-        Throws.Exception.TypeOf<TypeDiscoveryException>());
-
+        container.RegisterInstance((Action<IUnityContainer>) RegistrationAction);
+        var discoverer = new IocRegistrarTypeDiscoverer();
+        Assert.That(
+          () => discoverer.Discover(container),
+          Throws.Exception.TypeOf<TypeDiscoveryException>());
+      }
     }
   }
 }

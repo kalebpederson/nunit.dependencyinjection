@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 
 namespace NUnit.Extension.DependencyInjection
 {
@@ -6,7 +9,7 @@ namespace NUnit.Extension.DependencyInjection
   /// Attribute used to mark a test fixture as being eligible for dependency injection
   /// through the NUnit.Extension.DependencyInjection framework.
   /// </summary>
-  public class DependencyInjectingTestFixtureAttribute : DependencyInjectingAttributeBase
+  public class DependencyInjectingBaseTestFixtureAttribute : DependencyInjectingBaseAttribute
   {
     /// <summary>
     /// Creates an instance of the attribute. When this constructor is used dependency
@@ -14,7 +17,7 @@ namespace NUnit.Extension.DependencyInjection
     /// <see cref="NUnitTypeInjectionFactoryAttribute"/> and the
     /// <see cref="NUnitTypeDiscovererAttribute"/>s.
     /// </summary>
-    public DependencyInjectingTestFixtureAttribute() 
+    public DependencyInjectingBaseTestFixtureAttribute()
       : base(AttributeBasedTestSuiteBuilderFactory)
     {
     }
@@ -31,7 +34,7 @@ namespace NUnit.Extension.DependencyInjection
     /// The <see cref="ITypeDiscovererTypeSelector"/> type to be used to discover the
     /// types to be registered into the inversion of control container.
     /// </param>
-    public DependencyInjectingTestFixtureAttribute(Type injectionFactoryType, Type typeSelectorType)
+    public DependencyInjectingBaseTestFixtureAttribute(Type injectionFactoryType, Type typeSelectorType)
       : base(StaticTypeBasedTestSuiteBuilderFactory(injectionFactoryType, typeSelectorType))
     {
     }
@@ -41,7 +44,7 @@ namespace NUnit.Extension.DependencyInjection
       )
     {
       return () => new InjectingTestSuiteBuilder(
-        new StaticInjectionFactoryTypeSelector(injectionFactoryType), 
+        new StaticInjectionFactoryTypeSelector(injectionFactoryType),
         new StaticTypeDiscovererTypeSelector(typeSelectorType));
     }
 

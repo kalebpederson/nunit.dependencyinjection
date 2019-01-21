@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 using System.Reflection;
 
 namespace NUnit.Extension.DependencyInjection
@@ -28,7 +31,7 @@ namespace NUnit.Extension.DependencyInjection
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown when <paramref name="discovererType"/> does not
     /// have a public no-args constructor.
-    /// </exception> 
+    /// </exception>
     public static void AssertIsValidDiscovererType(Type discovererType)
     {
       AssertIsNotNull(discovererType);
@@ -51,7 +54,10 @@ namespace NUnit.Extension.DependencyInjection
     {
       var ctorInfo = discovererType.GetConstructor(
         BindingFlags.Public | BindingFlags.Instance,
-        null, CallingConventions.Standard, Type.EmptyTypes, null);
+        null,
+        CallingConventions.Standard,
+        Type.EmptyTypes,
+        null);
       if (ctorInfo == null)
       {
         throw new ArgumentOutOfRangeException(

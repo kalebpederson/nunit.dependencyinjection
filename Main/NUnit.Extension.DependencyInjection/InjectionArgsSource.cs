@@ -1,17 +1,31 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 using System.Linq;
 using System.Reflection;
 
 namespace NUnit.Extension.DependencyInjection
 {
+  /// <summary>
+  /// An argument source used to inject parameters into types to support dependency injection.
+  /// </summary>
+  /// <typeparam name="T">The type for which parameters will be injected.</typeparam>
   public class InjectionArgsSource<T> : InjectionArgsSource
   {
-    public InjectionArgsSource(Func<Type, object> injectionFunc) 
+    /// <inheritdoc />
+    /// <param name="injectionFunc">
+    /// A function used to create the instance of the type.
+    /// </param>
+    public InjectionArgsSource(Func<Type, object> injectionFunc)
       : base(injectionFunc, typeof(T))
     {
     }
   }
 
+  /// <summary>
+  /// The base argument source used to inject parameters into types to support dependency injection.
+  /// </summary>
   public class InjectionArgsSource
   {
     private readonly Func<Type, object> _injectionFunc;
@@ -56,7 +70,7 @@ namespace NUnit.Extension.DependencyInjection
     /// </exception>
     public object[] GetInjectionParameters()
     {
-      return 
+      return
         _ctor.GetParameters()
           .Select(x => x.ParameterType)
           .Select(TryInject)
@@ -113,7 +127,10 @@ namespace NUnit.Extension.DependencyInjection
 
     private void AssertIsNotNull(string name, object value)
     {
-      if (value == null) throw new ArgumentNullException(name, $"Parameter {name} was null");
+      if (value == null)
+      {
+        throw new ArgumentNullException(name, $"Parameter {name} was null");
+      }
     }
 
     private object TryInject(Type injectionType)

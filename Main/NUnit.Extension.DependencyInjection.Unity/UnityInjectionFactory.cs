@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using Unity;
 
@@ -7,9 +10,9 @@ namespace NUnit.Extension.DependencyInjection.Unity
   /// <summary>
   /// This class is an <see cref="IInjectionFactory"/> referenced through the
   /// <see cref="NUnitTypeInjectionFactoryAttribute"/> as a means of specifying
-  /// the concrete type that is used to create the instances which are 
+  /// the concrete type that is used to create the instances which are
   /// injected into test fixtures decorated with the <see
-  /// cref="DependencyInjectingTestFixtureAttribute"/>.
+  /// cref="DependencyInjectingBaseTestFixtureAttribute"/>.
   /// </summary>
   /// <example>
   /// [assembly: NUnitTypeInjectionFactory(typeof(UnityIocContainer))]

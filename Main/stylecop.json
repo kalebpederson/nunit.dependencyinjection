@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "$readerComments": "This file controls a portion of the settings used by the StyleCop analyzers. The remainder of the rules are controlled by the CodeAnalysis.ruleset file.",
+  "settings": {
+    "indentation": {
+      "useTabs": false,
+      "tabSize": 2,
+      "indentationSize": 2
+    },
+    "documentationRules": {
+      "companyName" : "Kaleb Pederson Software LLC",
+      "copyrightText": "Copyright (c) {companyName}. All rights reserved.\nLicensed under the {licenseName} license. See {licenseFile} file alongside the solution file for full license information.",
+      "variables": {
+        "licenseName": "MIT",
+        "licenseFile": "LICENSE"
+      },
+      "xmlHeader": false
+    }
+  }
+}

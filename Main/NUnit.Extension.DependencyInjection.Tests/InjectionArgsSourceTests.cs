@@ -1,6 +1,8 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace NUnit.Extension.DependencyInjection.Tests
@@ -8,41 +10,43 @@ namespace NUnit.Extension.DependencyInjection.Tests
   [TestFixture]
   public class InjectionArgsSourceTests
   {
-    public interface IDependency1 {}
-    public interface IDependency2 {}
-    public class Dependency1 : IDependency1 {}
-    public class Dependency2 : IDependency2 {}
-    
-    public class DependencyInjectingTestClass
+    private interface IDependency1
     {
-      public IDependency1 Dependency1 { get; } 
-      public IDependency2 Dependency2 { get; }
+    }
 
+    private interface IDependency2
+    {
+    }
+
+    private class Dependency1 : IDependency1
+    {
+    }
+    private class Dependency2 : IDependency2
+    {
+    }
+
+    private class DependencyInjectingTestClass
+    {
       public DependencyInjectingTestClass(IDependency1 dependency1, IDependency2 dependency2)
       {
-        Dependency1 = dependency1;
-        Dependency2 = dependency2;
       }
     }
 
-    public class MyGenericTest<T>
+    private class MyGenericTest<T>
     {
-      public IDependency1 Dependency1 { get; }
-
       public MyGenericTest(IDependency1 dependency1)
       {
-        Dependency1 = dependency1;
       }
     }
-    
-    public class TestClassWithPrivateConstructor
+
+    private class TestClassWithPrivateConstructor
     {
       private TestClassWithPrivateConstructor()
       {
       }
     }
-    
-    public class TestClassWithTooManyConstructors
+
+    private class TestClassWithTooManyConstructors
     {
       public TestClassWithTooManyConstructors(IDependency1 dep1)
       {
@@ -52,9 +56,11 @@ namespace NUnit.Extension.DependencyInjection.Tests
       {
       }
     }
-    
-    public class TestClassWithNoConstructorParameters {}
-    
+
+    private class TestClassWithNoConstructorParameters
+    {
+    }
+
     [Test]
     public void InjectionArgsSource_creates_argument_list_with_values_returned_by_factory()
     {
@@ -63,8 +69,16 @@ namespace NUnit.Extension.DependencyInjection.Tests
 
       object Factory(Type t)
       {
-        if (typeof(IDependency1) == t) return dep1;
-        if (typeof(IDependency2) == t) return dep2;
+        if (typeof(IDependency1) == t)
+        {
+          return dep1;
+        }
+
+        if (typeof(IDependency2) == t)
+        {
+          return dep2;
+        }
+
         throw new Exception($"Requested unsupported dependency type {t.FullName}");
       }
 
@@ -85,7 +99,7 @@ namespace NUnit.Extension.DependencyInjection.Tests
     {
       object Factory(Type t) => throw new Exception($"Requested unsupported dependency type {t.FullName}");
       var source = new InjectionArgsSource<DependencyInjectingTestClass>(Factory);
-      
+
       var thrown = Assert.Throws<DependencyResolutionException>(() => source.GetInjectionParameters());
       Assert.That(thrown.InjectionClassType, Is.EqualTo(typeof(DependencyInjectingTestClass)));
       Assert.That(thrown.InjectionParameterType, Is.EqualTo(typeof(IDependency1)));
@@ -104,40 +118,40 @@ namespace NUnit.Extension.DependencyInjection.Tests
     [Test]
     public void Ctor_throws_ArgumentOutOfRangeException_if_the_injection_type_does_not_have_a_public_constructor()
     {
-      object Factory(Type t) => new Object();
+      object Factory(Type t) => new object();
       Assert.That(
         () => new InjectionArgsSource<TestClassWithPrivateConstructor>(Factory),
         Throws.InstanceOf<ArgumentOutOfRangeException>()
           .With.Message.Match("single public constructor")
         );
     }
-    
+
     [Test]
     public void Ctor_throws_ArgumentOutOfRangeException_if_the_injection_type_has_too_many_constructors()
     {
-      object Factory(Type t) => new Object();
+      object Factory(Type t) => new object();
       Assert.That(
         () => new InjectionArgsSource<TestClassWithTooManyConstructors>(Factory),
         Throws.InstanceOf<ArgumentOutOfRangeException>()
           .With.Message.Match("single public constructor")
         );
     }
-    
+
     [Test]
     public void Ctor_does_not_throw_on_a_type_with_no_constructor_parameters()
     {
-      object Factory(Type t) => new Object();
+      object Factory(Type t) => new object();
       Assert.That(
         () => new InjectionArgsSource<TestClassWithNoConstructorParameters>(Factory),
         Throws.Nothing
         );
     }
-     
+
     [TestCase(typeof(IDependency1))]
     [TestCase(typeof(IEnumerable<object>))]
     public void Ctor_throws_an_ArgumentOutOfRangeException_if_the_type_to_be_constructed_is_abstract(Type typeToInjectInto)
     {
-      object Factory(Type t) => new Object();
+      object Factory(Type t) => new object();
       Assert.That(
         () => new InjectionArgsSource(Factory, typeToInjectInto),
         Throws.InstanceOf<ArgumentOutOfRangeException>()
@@ -148,7 +162,7 @@ namespace NUnit.Extension.DependencyInjection.Tests
     [Test]
     public void Ctor_throws_an_ArgumentOutOfRangeException_if_the_type_to_be_constructed_is_an_open_generic_type()
     {
-      object Factory(Type t) => new Object();
+      object Factory(Type t) => new object();
       Assert.That(
         () => new InjectionArgsSource(Factory, typeof(MyGenericTest<>)),
         Throws.InstanceOf<ArgumentOutOfRangeException>()

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 using System.Reflection;
 
 namespace NUnit.Extension.DependencyInjection
@@ -40,7 +43,10 @@ namespace NUnit.Extension.DependencyInjection
     {
       var ctorInfo = factoryType.GetConstructor(
         BindingFlags.Public | BindingFlags.Instance,
-        null, CallingConventions.Standard, Type.EmptyTypes, null);
+        null,
+        CallingConventions.Standard,
+        Type.EmptyTypes,
+        null);
       if (ctorInfo == null)
       {
         throw new ArgumentOutOfRangeException(

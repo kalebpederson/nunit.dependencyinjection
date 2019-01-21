@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 
 namespace NUnit.Extension.DependencyInjection
 {
@@ -17,7 +20,7 @@ namespace NUnit.Extension.DependencyInjection
     /// Thrown when when the application is not properly configured for
     /// type discovery, such as when no <see
     /// cref="NUnitTypeDiscovererAttribute"/> is present.
-    /// </exception> 
+    /// </exception>
     Type GetTypeDiscovererType();
   }
 }
