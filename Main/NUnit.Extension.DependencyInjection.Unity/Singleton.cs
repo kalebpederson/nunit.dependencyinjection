@@ -1,12 +1,14 @@
-﻿
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
 namespace NUnit.Extension.DependencyInjection.Unity
 {
-  internal static class Singleton<T> where T: class, new()
+  internal static class Singleton<T> where T : class, new()
   {
     // ReSharper disable once StaticMemberInGenericType
     private static readonly object _syncLock = new object();
 
-    private static T _instance = null;
+    private static T _instance;
 
     public static T Instance
     {
@@ -23,6 +25,7 @@ namespace NUnit.Extension.DependencyInjection.Unity
             }
           }
         }
+
         return _instance;
       }
     }

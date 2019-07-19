@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 
 #if NETFULL
 using System.Runtime.Serialization;
@@ -22,10 +25,10 @@ namespace NUnit.Extension.DependencyInjection
     /// <inheritdoc />
     /// <summary>
     /// Creates an instance of the exception that occurred while
-    /// processing an instance of <see cref="erringTypeDiscovererType"/>
+    /// processing an instance of <paramref name="erringTypeDiscovererType"/>
     /// which resulted in the exception specified by <paramref name="innerException"/>.
     /// </summary>
-    public TypeDiscoveryException(Type erringTypeDiscovererType, Exception innerException) 
+    public TypeDiscoveryException(Type erringTypeDiscovererType, Exception innerException)
       : base(FormatMessage(erringTypeDiscovererType), innerException)
     {
       TypeDiscovererType = erringTypeDiscovererType;
@@ -38,7 +41,7 @@ namespace NUnit.Extension.DependencyInjection
 
 #if NETFULL
     /// <inheritdoc />
-    protected TypeDiscoveryException(SerializationInfo info, StreamingContext context) 
+    protected TypeDiscoveryException(SerializationInfo info, StreamingContext context)
       : base(info, context)
     {
       TypeDiscovererType = (Type)info.GetValue(nameof(TypeDiscovererType), typeof(Type));

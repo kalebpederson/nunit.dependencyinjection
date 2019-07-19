@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
+
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -11,7 +14,7 @@ namespace NUnit.Extension.DependencyInjection
   /// process while using this extension.
   /// </summary>
   [AttributeUsage(AttributeTargets.Class)]
-  public class DependencyInjectingAttributeBase : NUnitAttribute, IFixtureBuilder
+  public class DependencyInjectingBaseAttribute : NUnitAttribute, IFixtureBuilder
   {
     private readonly Lazy<IInjectingTestSuiteBuilder> _lazyBuilder;
 
@@ -23,11 +26,11 @@ namespace NUnit.Extension.DependencyInjection
     /// <param name="builderFactory">
     /// The factory used to create test suite.
     /// </param>
-    protected DependencyInjectingAttributeBase(Func<IInjectingTestSuiteBuilder> builderFactory)
+    protected DependencyInjectingBaseAttribute(Func<IInjectingTestSuiteBuilder> builderFactory)
     {
       _lazyBuilder = new Lazy<IInjectingTestSuiteBuilder>(builderFactory, true);
     }
-    
+
     /// <inheritdoc />
     public IEnumerable<TestSuite> BuildFrom(ITypeInfo typeInfo)
     {
