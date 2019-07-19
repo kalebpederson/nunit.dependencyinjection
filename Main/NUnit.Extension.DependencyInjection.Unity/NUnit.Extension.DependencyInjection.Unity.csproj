@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;net46;net47;netstandard20</TargetFrameworks>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <Authors>Kaleb Pederson</Authors>
     <Company>Kaleb Pederson Software LLC</Company>
     <Description>Enables dependency injection within NUnit using the Unity inversion of control container.</Description>
