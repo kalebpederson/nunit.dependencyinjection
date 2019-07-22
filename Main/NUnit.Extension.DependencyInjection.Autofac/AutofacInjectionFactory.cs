@@ -1,39 +1,36 @@
-﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
-// Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using Unity;
+using Autofac;
 
-namespace NUnit.Extension.DependencyInjection.Unity
+namespace NUnit.Extension.DependencyInjection.Autofac
 {
   /// <summary>
   /// This class is an <see cref="IInjectionFactory"/> referenced through the
   /// <see cref="NUnitTypeInjectionFactoryAttribute"/> as a means of specifying
-  /// the concrete type that is used to create the instances which are
+  /// the concrete type that is used to create the instances which are 
   /// injected into test fixtures decorated with the <see
   /// cref="DependencyInjectingTestFixtureAttribute"/>.
   /// </summary>
   /// <example>
-  /// [assembly: NUnitTypeInjectionFactory(typeof(UnityIocContainer))]
+  /// [assembly: NUnitTypeInjectionFactory(typeof(AutofacIocContainer))]
   /// </example>
-  public class UnityInjectionFactory : IInjectionFactory
+  public class AutofacInjectionFactory : IInjectionFactory
   {
-    private readonly Lazy<IUnityContainer> _lazyContainer;
+    private readonly Lazy<IContainer> _lazyContainer;
 
     /// <summary>
-    /// Creates an instance of the <see cref="UnityInjectionFactory"/> configured
-    /// to use a singleton <see cref="UnityContainer"/>.
+    /// Creates an instance of the <see cref="AutofacInjectionFactory"/> configured
+    /// to use a singleton <see cref="IContainer"/>.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public UnityInjectionFactory()
+    public AutofacInjectionFactory()
     {
-      _lazyContainer = new Lazy<IUnityContainer>(() => Singleton<UnityContainer>.Instance, true);
+      _lazyContainer = new Lazy<IContainer>(() => Singleton<ContainerBuilder>.Instance.Build(), true);
     }
 
     /// <summary>
     /// <para>
-    /// Creates an instance of the <see cref="UnityInjectionFactory"/> configured
+    /// Creates an instance of the <see cref="AutofacInjectionFactory"/> configured
     /// to use the <paramref name="lazyContainer"/> function to create the container
     /// that will be used to resolve the parameters to the test fixtures.
     /// </para>
@@ -46,16 +43,15 @@ namespace NUnit.Extension.DependencyInjection.Unity
     /// <param name="lazyContainer">
     /// The factory function used to create the container.
     /// </param>
-    public UnityInjectionFactory(Func<IUnityContainer> lazyContainer)
+    public AutofacInjectionFactory(Func<ContainerBuilder> lazyContainer)
     {
-      _lazyContainer = new Lazy<IUnityContainer>(lazyContainer, true);
+      _lazyContainer = new Lazy<IContainer>(
+        () => lazyContainer.Invoke().Build(), true);
     }
 
     /// <inheritdoc />
     public void Initialize(ITypeDiscoverer typeDiscoverer)
     {
-      // NOTE: although the IUnityContainer is disposable, this should be
-      // the global instance and it should not be disposed of at this point.
       typeDiscoverer.Discover(_lazyContainer.Value);
     }
 
