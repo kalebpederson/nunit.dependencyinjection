@@ -166,7 +166,6 @@ public class MyTests
 }
 ```
 
-
 # Troubleshooting
 
 Although we have put a lot of effort into ensuring that the error messages are
@@ -179,3 +178,8 @@ error messages that occur while setting up the test. Suggested steps:
 1. If possible, run the test using `dotnet test` or the native NUnit test
    runner as they provide better error information, such as the full exception
    and stack trace.
+
+# TODO
+
+1. **Support for other containers** - Autofac and other containers are more popular
+and should be supported.
