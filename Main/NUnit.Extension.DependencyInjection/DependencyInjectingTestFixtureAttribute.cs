@@ -9,7 +9,7 @@ namespace NUnit.Extension.DependencyInjection
   /// Attribute used to mark a test fixture as being eligible for dependency injection
   /// through the NUnit.Extension.DependencyInjection framework.
   /// </summary>
-  public class DependencyInjectingBaseTestFixtureAttribute : DependencyInjectingBaseAttribute
+  public class DependencyInjectingTestFixtureAttribute : DependencyInjectingBaseAttribute
   {
     /// <summary>
     /// Creates an instance of the attribute. When this constructor is used dependency
@@ -17,7 +17,7 @@ namespace NUnit.Extension.DependencyInjection
     /// <see cref="NUnitTypeInjectionFactoryAttribute"/> and the
     /// <see cref="NUnitTypeDiscovererAttribute"/>s.
     /// </summary>
-    public DependencyInjectingBaseTestFixtureAttribute()
+    public DependencyInjectingTestFixtureAttribute()
       : base(AttributeBasedTestSuiteBuilderFactory)
     {
     }
@@ -34,7 +34,7 @@ namespace NUnit.Extension.DependencyInjection
     /// The <see cref="ITypeDiscovererTypeSelector"/> type to be used to discover the
     /// types to be registered into the inversion of control container.
     /// </param>
-    public DependencyInjectingBaseTestFixtureAttribute(Type injectionFactoryType, Type typeSelectorType)
+    public DependencyInjectingTestFixtureAttribute(Type injectionFactoryType, Type typeSelectorType)
       : base(StaticTypeBasedTestSuiteBuilderFactory(injectionFactoryType, typeSelectorType))
     {
     }

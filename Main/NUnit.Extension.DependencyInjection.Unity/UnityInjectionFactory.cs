@@ -12,7 +12,7 @@ namespace NUnit.Extension.DependencyInjection.Unity
   /// <see cref="NUnitTypeInjectionFactoryAttribute"/> as a means of specifying
   /// the concrete type that is used to create the instances which are
   /// injected into test fixtures decorated with the <see
-  /// cref="DependencyInjectingBaseTestFixtureAttribute"/>.
+  /// cref="DependencyInjectingTestFixtureAttribute"/>.
   /// </summary>
   /// <example>
   /// [assembly: NUnitTypeInjectionFactory(typeof(UnityIocContainer))]
