@@ -23,7 +23,7 @@ namespace NUnit.Extension.DependencyInjection.Tests
         );
       var suite = attr.GetParametersFor(typeof(TestWithTwoObjectDependency)).ToList();
       Assert.That(suite, Is.Not.Null);
-      Assert.That(suite.Count(), Is.EqualTo(1));
+      Assert.That(suite.Count, Is.EqualTo(1));
       var testFixtureData = suite.First();
       Assert.That(testFixtureData.TestName, Is.EqualTo(nameof(TestWithTwoObjectDependency)));
       Assert.That(testFixtureData.Arguments, Is.EqualTo(objects));
