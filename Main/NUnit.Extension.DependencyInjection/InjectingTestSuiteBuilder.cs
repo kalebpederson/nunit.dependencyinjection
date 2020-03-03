@@ -48,7 +48,7 @@ namespace NUnit.Extension.DependencyInjection
     /// <inheritdoc />
     public IEnumerable<TestSuite> Build(ITypeInfo typeInfo)
     {
-      return CreateTestSuite(typeInfo, GetParametersFor(typeInfo.Type).FirstOrDefault());
+      return typeInfo == null ? Enumerable.Empty<TestSuite>() : CreateTestSuite(typeInfo, GetParametersFor(typeInfo.Type).FirstOrDefault());
     }
 
     /// <summary>
@@ -67,8 +67,8 @@ namespace NUnit.Extension.DependencyInjection
         {
           // set the test name so that it doesn't show up as
           // a parameterized test.
-          TestName = TypeHelper.GetDisplayName(sourceType)
-        }
+          TestName = TypeHelper.GetDisplayName(sourceType),
+        },
       };
     }
 

@@ -54,8 +54,14 @@ namespace NUnit.Extension.DependencyInjection.Unity
     /// <inheritdoc />
     public void Initialize(ITypeDiscoverer typeDiscoverer)
     {
-      // NOTE: although the IUnityContainer is disposable, this should be
-      // the global instance and it should not be disposed of at this point.
+      if (typeDiscoverer is null)
+      {
+        throw new ArgumentNullException(
+          nameof(typeDiscoverer),
+          $"{nameof(typeDiscoverer)} passed to {GetType().FullName} was null.");
+      }
+      /* NOTE: although the IUnityContainer is disposable, this should be
+         the global instance and it should not be disposed of at this point. */
       typeDiscoverer.Discover(_lazyContainer.Value);
     }
 

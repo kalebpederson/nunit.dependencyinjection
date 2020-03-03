@@ -73,7 +73,7 @@ namespace NUnit.Extension.DependencyInjection.Tests
       var attr = new DependencyInjectingTestFixtureAttribute(typeof(ValidInjectionFactory), typeof(ValidTypeDiscoverer));
       var suite = attr.BuildFrom(new TypeWrapper(type)).ToList();
       Assert.That(suite, Is.Not.Null);
-      Assert.That(suite.Count(), Is.EqualTo(1));
+      Assert.That(suite.Count, Is.EqualTo(1));
       Assert.That(suite.First().Name, Is.EqualTo(type.Name));
     }
   }

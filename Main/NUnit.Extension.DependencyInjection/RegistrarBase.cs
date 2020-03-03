@@ -17,6 +17,13 @@ namespace NUnit.Extension.DependencyInjection
     /// <inheritdoc />
     public void Register(object container)
     {
+      if (container is null)
+      {
+        throw new ArgumentNullException(
+          nameof(container),
+          $"{nameof(container)} passed to {GetType().FullName} was null."
+          );
+      }
       if (!(container is T))
       {
         throw new ArgumentOutOfRangeException(

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;net46;net47;netstandard20</TargetFrameworks>
-    <Version>0.3.2</Version>
+    <Version>0.4.0</Version>
     <Authors>Kaleb Pederson</Authors>
     <Company>Kaleb Pederson Software LLC</Company>
     <Description>Enables dependency injection within NUnit using the Unity inversion of control container.</Description>
@@ -13,7 +13,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>nunit dependency-injection unity</PackageTags>
     <IsTestProject>false</IsTestProject>
-    <AssemblyVersion>0.3.0.0</AssemblyVersion>
+    <AssemblyVersion>0.4.0.0</AssemblyVersion>
+    <FileVersion>0.4.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net46' OR '$(TargetFramework)' == 'net47'">
@@ -30,16 +31,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.3">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Unity.Container" Version="5.8.11" />
-    <PackageReference Include="Unity.RegistrationByConvention" Version="2.1.9" />
+    <PackageReference Include="Unity.Container" Version="5.11.5" />
+    <PackageReference Include="Unity.RegistrationByConvention" Version="5.11.1" />
   </ItemGroup>
 
   <ItemGroup>
