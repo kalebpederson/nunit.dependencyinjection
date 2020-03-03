@@ -12,7 +12,7 @@ namespace NUnit.Extension.DependencyInjection.Unity
   /// <see cref="NUnitTypeInjectionFactoryAttribute"/> as a means of specifying
   /// the concrete type that is used to create the instances which are
   /// injected into test fixtures decorated with the <see
-  /// cref="DependencyInjectingBaseTestFixtureAttribute"/>.
+  /// cref="DependencyInjectingTestFixtureAttribute"/>.
   /// </summary>
   /// <example>
   /// [assembly: NUnitTypeInjectionFactory(typeof(UnityIocContainer))]
@@ -54,8 +54,14 @@ namespace NUnit.Extension.DependencyInjection.Unity
     /// <inheritdoc />
     public void Initialize(ITypeDiscoverer typeDiscoverer)
     {
-      // NOTE: although the IUnityContainer is disposable, this should be
-      // the global instance and it should not be disposed of at this point.
+      if (typeDiscoverer is null)
+      {
+        throw new ArgumentNullException(
+          nameof(typeDiscoverer),
+          $"{nameof(typeDiscoverer)} passed to {GetType().FullName} was null.");
+      }
+      /* NOTE: although the IUnityContainer is disposable, this should be
+         the global instance and it should not be disposed of at this point. */
       typeDiscoverer.Discover(_lazyContainer.Value);
     }
 

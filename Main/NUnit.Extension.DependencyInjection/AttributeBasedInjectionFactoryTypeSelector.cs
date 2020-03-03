@@ -47,7 +47,7 @@ namespace NUnit.Extension.DependencyInjection
       if (injectionFactoryAttribute == null)
       {
         throw new InvalidOperationException(
-          $"{nameof(DependencyInjectingBaseTestFixtureAttribute)} requires an injection plugin be loaded. Please ensure " +
+          $"{nameof(DependencyInjectingTestFixtureAttribute)} requires an injection plugin be loaded. Please ensure " +
           $"that one is present or create one using the {typeof(IInjectionFactory).FullName} interface " +
           $"and register it using the {typeof(NUnitTypeInjectionFactoryAttribute).FullName} attribute.");
       }
