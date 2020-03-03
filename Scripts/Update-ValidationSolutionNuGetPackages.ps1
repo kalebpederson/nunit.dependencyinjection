@@ -56,7 +56,7 @@ $testProjects | % {
   $project.RequiredPkgs | % {
     $id = $_
     $projectName = (get-item $projectFile).Name
-    Write-Host "Updating package $id in $projectName using source $($idLocationMap[$id])..." 
+    Write-Host "Updating package $id in $projectName using source '$($idLocationMap[$id])' ..." 
     . $scriptDir\Update-NuGetPackageInProject.ps1 -id $id -source $idLocationMap[$id] -installProject $projectFile
   }
 }

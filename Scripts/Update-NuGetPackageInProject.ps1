@@ -18,11 +18,12 @@ if (-not (test-path -type Container $source)) {
 }
 
 $sourceDir = (resolve-path $source).Path
-pushd @(dir $installProject).Directory.FullName > $null 2>&1
+$projectPath = @(dir $installProject)
+pushd $projectPath.Directory.FullName > $null 2>&1
 try
 {
-  write-host "Installing package $id from source $sourceDir into $installProject..."
-  dotnet add package $id -s $sourceDir
+  write-host "Installing package $id from source $sourceDir into '$($projectPath.Name)' ..."
+  dotnet add $projectPath.FullName package -s $sourceDir $id
   if ($LASTEXITCODE -ne 0)
   {
     exit 3
