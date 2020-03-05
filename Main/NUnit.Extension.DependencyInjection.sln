@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\Readme.md = ..\Readme.md
 		CodeAnalysis.ruleset = CodeAnalysis.ruleset
 		stylecop.json = stylecop.json
+		..\Development_Readme.md = ..\Development_Readme.md
 	EndProjectSection
 EndProject
 Global
