@@ -10,7 +10,7 @@ SDKs to the system under test. This framework is intended to support these
 scenarios.
 
 # Warning
-Good unit tests shouldn't need to inject dependencies into the test fixture.
+Good **unit tests** shouldn't need to inject dependencies into the test fixture.
 If you need dependency injection into a test fixture in unit tests then
 consider whether the design of the system could be changed in such a way that
 the system under test can be easily unit tested without that need.
