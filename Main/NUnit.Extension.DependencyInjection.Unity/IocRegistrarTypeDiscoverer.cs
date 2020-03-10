@@ -10,8 +10,11 @@ using Unity;
 namespace NUnit.Extension.DependencyInjection.Unity
 {
   /// <summary>
-  /// A type discoverer which does discovery based on the set of discovered type
-  /// registers but otherwise does no scanning of loaded assemblies.
+  /// A type discoverer which does discovery of all <see cref="IIocRegistrar"/>s
+  /// available after which the discovered registrars are executed. Registrar
+  /// types which are decorated with the <see
+  /// cref="NUnitExcludeFromAutoScanAttribute"/> are excluded from discovery and,
+  /// therefore, will not be executed.
   /// </summary>
   public class IocRegistrarTypeDiscoverer : TypeDiscovererBase<IUnityContainer>
   {
@@ -24,6 +27,7 @@ namespace NUnit.Extension.DependencyInjection.Unity
         .Where(t =>
           typeof(IIocRegistrar).IsAssignableFrom(t)
           && !t.IsAbstract)
+        .Where(t => !t.GetCustomAttributes(typeof(NUnitExcludeFromAutoScanAttribute), true).Any())
         .ToList();
       foreach (var registrar in types)
       {
@@ -60,4 +64,6 @@ namespace NUnit.Extension.DependencyInjection.Unity
       }
     }
   }
+  
+  
 }

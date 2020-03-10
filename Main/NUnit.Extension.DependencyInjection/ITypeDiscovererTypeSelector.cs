@@ -22,5 +22,19 @@ namespace NUnit.Extension.DependencyInjection
     /// cref="NUnitTypeDiscovererAttribute"/> is present.
     /// </exception>
     Type GetTypeDiscovererType();
+    
+    /// <summary>
+    /// Provides the arguments required for the type <see cref="ITypeDiscoverer"/>
+    /// that is being used.
+    /// </summary>
+    /// <returns>
+    /// The arguments required for the creation of the <see cref="ITypeDiscoverer"/>.
+    /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when when the application is not properly configured for
+    /// type discovery, such as when no <see cref="NUnitTypeDiscovererAttribute"/>
+    /// is present.
+    /// </exception>
+    object[] GetTypeDiscovererArguments();
   }
 }

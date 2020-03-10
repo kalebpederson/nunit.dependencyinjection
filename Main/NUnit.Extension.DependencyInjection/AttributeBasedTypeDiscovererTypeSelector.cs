@@ -18,6 +18,23 @@ namespace NUnit.Extension.DependencyInjection
     /// <inheritdoc />
     public Type GetTypeDiscovererType()
     {
+      var typeDiscovererAttribute = GetTypeDiscovererAttributeOrThrow();
+      Trace.TraceInformation(
+        $"Found {nameof(NUnitTypeDiscovererAttribute)} in assembly " +
+        $"{typeDiscovererAttribute.GetType().Assembly.FullName}. Will use the type discoverer of type " +
+        $"{typeDiscovererAttribute.TypeDiscovererInfo.DiscovererType.FullName}.");
+      return typeDiscovererAttribute.TypeDiscovererInfo.DiscovererType;
+    }
+    
+    /// <inheritdoc />
+    public object[] GetTypeDiscovererArguments()
+    {
+      var typeDiscovererAttribute = GetTypeDiscovererAttributeOrThrow();
+      return typeDiscovererAttribute.TypeDiscovererInfo.DiscovererArguments;
+    }
+
+    private static NUnitTypeDiscovererAttribute GetTypeDiscovererAttributeOrThrow()
+    {
       var typeDiscovererAttribute = AppDomain.CurrentDomain.GetAssemblies()
         .SelectMany(a => a.GetCustomAttributes(typeof(NUnitTypeDiscovererAttribute), false))
         .OfType<NUnitTypeDiscovererAttribute>()
@@ -28,11 +45,7 @@ namespace NUnit.Extension.DependencyInjection
           $"The {typeof(ITypeDiscoverer).FullName} registered requires the presence of at least one type " +
           $"discoverer but none were found.");
       }
-      Trace.TraceInformation(
-        $"Found {nameof(NUnitTypeDiscovererAttribute)} in assembly " +
-        $"{typeDiscovererAttribute.GetType().Assembly.FullName}. Will use the type discoverer of type " +
-        $"{typeDiscovererAttribute.TypeDiscovererType.FullName}.");
-      return typeDiscovererAttribute.TypeDiscovererType;
+      return typeDiscovererAttribute;
     }
   }
 }

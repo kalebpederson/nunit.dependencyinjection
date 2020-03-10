@@ -16,6 +16,10 @@ namespace NUnit.Extension.DependencyInjection
     /// <param name="container">
     /// The container into which the discovered types should be registered.
     /// </param>
+    /// <exception cref="TypeDiscoveryException">
+    /// Thrown when an error is encountered in the type discovery and registration
+    /// process.
+    /// </exception>
     void Discover(object container);
   }
 }

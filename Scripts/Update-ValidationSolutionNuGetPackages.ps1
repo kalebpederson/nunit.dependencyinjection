@@ -37,16 +37,13 @@ else
   }
 }
 
-$testProjects = @(
-  @{
-    ProjectFile = (join-path $validationDir -ChildPath "ConventionMappingTypeDiscovererTests\ConventionMappingTypeDiscovererTests.csproj")
-    RequiredPkgs = @('NUnit.Extension.DependencyInjection', 'NUnit.Extension.DependencyInjection.Unity')
-    },
-  @{
-    ProjectFile = (join-path $validationDir -ChildPath "IocRegistrarTypeDiscovererTests\IocRegistrarTypeDiscovererTests.csproj")
+$testProjects = @()
+dir $validationDir\*Tests\*.csproj | % {
+  $testProjects += @{
+    ProjectFile = $_.FullName
     RequiredPkgs = @('NUnit.Extension.DependencyInjection', 'NUnit.Extension.DependencyInjection.Unity')
     }
-  )
+}
 $validationSolution = (join-path $validationDir -ChildPath "ValidationTests.sln")
 
 # update the existing projects to use the recently-built NuGet packages
