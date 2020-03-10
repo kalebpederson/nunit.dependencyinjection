@@ -35,7 +35,7 @@ discovered, though custom processes can be added as well:
 
 These approaches are described below.
 
-## IIocRegistrar Based Type Discovery
+## Discovery/Scanning of all `IIocRegistrar`s
 
 When many different assemblies are present it can become difficult to
 automatically register all interfaces with their corresponding concrete types.
@@ -59,9 +59,9 @@ using NUnit.Extension.DependencyInjection.Unity;
 // container and then use the IocRegistrarTypeDiscoverer.
 [assembly: NUnitTypeDiscoverer(typeof(IocRegistrarTypeDiscoverer))]
 
-// The registrar above will look for implementations of IIocRegistrar,
-// which the RegistrarBase class implements, and then execute the
-// specified registrations:
+// The registrar above will scan for implementations of IIocRegistrar,
+// which the RegistrarBase class implements, and then execute each
+// discovered registrations:
 public class MyRegistrar : RegistrarBase<IUnityContainer>
 {
   protected override void RegisterInternal(IUnityContainer container)
@@ -107,8 +107,11 @@ public class MyTests
 ## Convention Based Type Discovery
 
 Sometimes it's convenient if the inversion of control container picks up all
-of the interfaces and their mapping registrations automatically. This example
-demonstrates that process:
+of the interfaces and their mapping registrations automatically. For example,
+given an interface `IDateTimeProvider` and a corresponding implementation
+`DateTimeProvider`, we might want to register the interface `IDateTimeProvider`
+as corresponding to the concrete implementation of `DateTimeProvider`.
+This example demonstrates that process:
 
 ```csharp
 // First import the following NuGet packages: 
@@ -166,6 +169,76 @@ public class MyTests
 }
 ```
 
+## Manual `IIocRegistrar` Selection
+
+When conflicting `IIocRegistrars` are present it's not possible to use assembly
+scanning. In this case, it's helpful to create a single `IIocRegistrar` that is
+manually defined and which will perform all necessary registrations.
+
+
+```csharp
+// First import the following NuGet packages: 
+// * NUnit.Extension.DependencyInjection
+// * NUnit.Extension.DependencyInjection.Unity
+
+using NUnit.Extension.DependencyInjection;
+using NUnit.Extension.DependencyInjection.Unity;
+
+// tell the extension that we will be using the Microsoft Unity Injection
+// factory
+[assembly: NUnitTypeInjectionFactory(typeof(UnityInjectionFactory))]
+
+// If we wanted to automatically register all interfaces with their concrete
+// implementations for which the NUnitAutoScanAssembly attribute is present on
+// the assembly is present we could do the following:
+[assembly: NUnitTypeDiscoverer(
+  typeof(ManualRegistrarTypeDiscoverer),
+  new [] {typeof(Type)},
+  new object[] {typeof(BundlingRegistrar)})]
+
+public class BundlingRegistrar : RegistrarBase<IUnityContainer>
+{
+  /// <inheritdoc />
+  protected override void RegisterInternal(IUnityContainer container)
+  {
+    container.RegisterType<IDependency1, Dependency1>();
+    container.RegisterType<IDependency2, Dependency2>();
+  }
+}
+
+// Loaded assemblies are scanned for interfaces and corresponding concrete
+// definitions. For example:
+public interface IDependency1 {}
+public interface IDependency2 {}
+
+public class Dependency1 : IDependency1 { }
+
+// Instead of using the [TestFixture] attribute when declaring a test class
+// you'll need to decorate the class with a DependencyInjectingTestFixture
+// attribute:
+[NUnit.Extension.DependencyInjection.DependencyInjectingTestFixture]
+public class MyTests
+{
+  private readonly IDependency1 _dependency1;
+  private readonly IDependency2 _dependency2;
+
+  // once everything is properly configured, dependencies can be injected
+  // directly into the constructor
+  public MyTests(IDependency1 dependency1, IDependency2 dependency2)
+  {
+    _dependency1 = dependency1;
+    _dependency2 = dependency2;
+  }
+
+  [Test]
+  public void Test_something_using_IDependency1()
+  {
+    Assert.That(_dependency1, Is.Not.Null);
+    Assert.That(_dependency1, Is.InstanceOf<Dependency1>());
+  }
+}
+```
+
 # Troubleshooting
 
 Although we have put a lot of effort into ensuring that the error messages are
@@ -181,5 +254,5 @@ error messages that occur while setting up the test. Suggested steps:
 
 # TODO
 
-1. **Support for other containers** - Autofac and other containers are more popular
-and should be supported.
+1. **Support for other containers** - Autofac and other containers that are more 
+popular should be supported.

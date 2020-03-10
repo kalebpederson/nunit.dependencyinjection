@@ -39,7 +39,11 @@ namespace NUnit.Extension.DependencyInjection
         () =>
         {
           var factory = CreateInjectionFactoryFromType(injectionFactoryTypeSelector.GetInjectionType());
-          factory.Initialize(CreateTypeDiscovererFromType(typeDiscovererTypeSelector.GetTypeDiscovererType()));
+          factory.Initialize(
+            CreateTypeDiscovererFromType(
+              typeDiscovererTypeSelector.GetTypeDiscovererType(),
+              typeDiscovererTypeSelector.GetTypeDiscovererArguments()
+              ));
           return factory;
         },
         true);
@@ -106,11 +110,11 @@ namespace NUnit.Extension.DependencyInjection
       }
     }
 
-    private static ITypeDiscoverer CreateTypeDiscovererFromType(Type typeDiscovererType)
+    private static ITypeDiscoverer CreateTypeDiscovererFromType(Type typeDiscovererType, object[] typeArguments)
     {
       try
       {
-        return (ITypeDiscoverer) Reflect.Construct(typeDiscovererType);
+        return (ITypeDiscoverer) Reflect.Construct(typeDiscovererType, typeArguments);
       }
       catch (Exception ex)
       {

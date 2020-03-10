@@ -27,5 +27,12 @@ namespace NUnit.Extension.DependencyInjection
     {
       return _type;
     }
+
+    /// <inheritdoc />
+    public object[] GetTypeDiscovererArguments()
+    {
+      // FIXME: Do I need to do anything more?
+      return new object[] { };
+    }
   }
 }

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConventionMappingTypeDiscov
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IocRegistrarTypeDiscovererTests", "IocRegistrarTypeDiscovererTests\IocRegistrarTypeDiscovererTests.csproj", "{1D59B905-142B-4416-963D-430B75A8AC77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManualRegistrarTypeDiscovererTests", "ManualRegistrarTypeDiscovererTests\ManualRegistrarTypeDiscovererTests.csproj", "{110563F3-4D19-4C4F-9021-D58583693D63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1D59B905-142B-4416-963D-430B75A8AC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D59B905-142B-4416-963D-430B75A8AC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D59B905-142B-4416-963D-430B75A8AC77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{110563F3-4D19-4C4F-9021-D58583693D63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{110563F3-4D19-4C4F-9021-D58583693D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{110563F3-4D19-4C4F-9021-D58583693D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{110563F3-4D19-4C4F-9021-D58583693D63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

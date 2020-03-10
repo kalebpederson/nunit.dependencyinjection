@@ -6,6 +6,7 @@
     <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
         <Rule Id="CA1001" Action="Warning" />
         <Rule Id="CA1009" Action="Warning" />
+        <Rule Id="CA1012" Action="Warning" />
         <Rule Id="CA1016" Action="Warning" />
         <Rule Id="CA1032" Action="None" />
         <Rule Id="CA1033" Action="Warning" />
@@ -15,6 +16,7 @@
         <Rule Id="CA1063" Action="Warning" />
         <Rule Id="CA1065" Action="Warning" />
         <Rule Id="CA1301" Action="Warning" />
+        <Rule Id="CA1303" Action="None" /> <!-- eventually localize -->
         <Rule Id="CA1400" Action="Warning" />
         <Rule Id="CA1401" Action="Warning" />
         <Rule Id="CA1403" Action="Warning" />
@@ -24,7 +26,9 @@
         <Rule Id="CA1415" Action="Warning" />
         <Rule Id="CA1707" Action="None" />
         <Rule Id="CA1720" Action="None" />
+        <Rule Id="CA1819" Action="None" />
         <Rule Id="CA1821" Action="Warning" />
+        <Rule Id="CA1825" Action="None" /> <!-- can remove once we support .NET Framework 4.6+ -->
         <Rule Id="CA1900" Action="Warning" />
         <Rule Id="CA1901" Action="Warning" />
         <Rule Id="CA2002" Action="Warning" />
@@ -69,6 +73,5 @@
         <Rule Id="CA2240" Action="Warning" />
         <Rule Id="CA2241" Action="Warning" />
         <Rule Id="CA2242" Action="Warning" />
-        <Rule Id="CA1012" Action="Warning" />
     </Rules>
 </RuleSet>

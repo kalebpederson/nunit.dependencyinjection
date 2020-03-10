@@ -15,6 +15,17 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
     {
     }
 
+    private class CallTrackingRegistrar : RegistrarBase<IUnityContainer>
+    {
+      public static int RegisterCallCount { get; set; }
+
+      /// <inheritdoc />
+      protected override void RegisterInternal(IUnityContainer container)
+      {
+        RegisterCallCount++;
+      }
+    }
+
     private class ActionInvokingRegistrar : RegistrarBase<IUnityContainer>
     {
       private readonly Action<IUnityContainer> _action;
@@ -30,20 +41,9 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
         _action.Invoke(container);
       }
     }
-
-    private class CallTrackingRegistrar : RegistrarBase<IUnityContainer>
-    {
-      public static int RegisterCallCount { get; set; }
-
-      /// <inheritdoc />
-      protected override void RegisterInternal(IUnityContainer container)
-      {
-        RegisterCallCount++;
-      }
-    }
-
+    
     [Test]
-    public void Discover_resolves_the_available_registrars()
+    public void Discover_runs_and_resolves_the_ActionInvokingRegistrar_Register_method()
     {
       using (var container = new UnityContainer())
       {
@@ -67,7 +67,7 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
     }
 
     [Test]
-    public void Discover_calls_the_CallTrackingRegistrar_Register_method()
+    public void Discover_runs_and_resolves_the_CallTrackingRegistrar_Register_method()
     {
       using (var container = new UnityContainer())
       {
