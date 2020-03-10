@@ -16,7 +16,7 @@
     <AssemblyVersion>0.5.0.0</AssemblyVersion>
     <FileVersion>0.5.0.0</FileVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Include XML documentation in NuGet package.</PackageReleaseNotes>
+    <PackageReleaseNotes>Make it possible to create type discoverers that require parameters.</PackageReleaseNotes>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net46' OR '$(TargetFramework)' == 'net47'">

@@ -17,7 +17,7 @@
     <FileVersion>0.5.0.0</FileVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReleaseNotes>
-      Include XML documentation in NuGet package. Add support choosing an IIocRegistrar to run on startup.
+      Add support for specifying a ManualRegistrarTypeDiscoverer.
     </PackageReleaseNotes>
   </PropertyGroup>
 
