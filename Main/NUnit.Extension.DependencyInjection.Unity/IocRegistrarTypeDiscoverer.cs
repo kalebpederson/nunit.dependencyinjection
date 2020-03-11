@@ -60,6 +60,10 @@ namespace NUnit.Extension.DependencyInjection.Unity
         // Erroring out and aborting all loading isn't going to help up so
         // it is only reasonable to skip these assemblies.
         Trace.TraceWarning($"Unable to load assembly {assembly.FullName}: {ex.Message}");
+        for (var i=0; i<ex.LoaderExceptions.Length; ++i)
+        {
+          Trace.TraceWarning($"  [{i}] => {ex.LoaderExceptions[i].Message}");
+        }
         return false;
       }
     }
