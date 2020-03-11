@@ -93,6 +93,30 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
     }
     
     [Test]
+    public void Discover_runs_and_resolves_the_specified_registrar_when_using_generic_version_of_class()
+    {
+      using (var container = new UnityContainer())
+      {
+        var callCount = 0;
+        
+        void RegistrationAction(IUnityContainer c)
+        {
+          callCount++;
+          c.RegisterType<TestingNestedClass>();
+        }
+
+        container.RegisterInstance((Action<IUnityContainer>) RegistrationAction);
+        var discoverer = new ManualRegistrarTypeDiscoverer<ActionInvokingRegistrar>();
+        discoverer.Discover(container);
+        Assert.That(callCount, Is.EqualTo(1));
+        Assert.That(
+          container.Registrations.Any(r => r.RegisteredType == typeof(TestingNestedClass)),
+          Is.True,
+          $"Expected the registration action to be called and have registered the {typeof(TestingNestedClass).FullName} type.");
+      }
+    }
+    
+    [Test]
     public void Discover_throws_TypeDiscoveryException_on_registrar_discovery_error()
     {
       using (var container = new UnityContainer())
