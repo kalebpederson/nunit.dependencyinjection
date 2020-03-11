@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Unity;
 using Unity.RegistrationByConvention;
@@ -9,11 +10,17 @@ using Unity.RegistrationByConvention;
 namespace NUnit.Extension.DependencyInjection.Unity
 {
   /// <summary>
+  /// <para>
   /// An <see cref="ITypeDiscoverer"/> whose implementation identifies all loaded
   /// assemblies marked with the <see cref="NUnitAutoScanAssemblyAttribute"/> and
-  /// identifies types with matching interfaces using Unity's <see
+  /// identifies concrete types with matching interfaces using Unity's <see
   /// cref="WithMappings.FromMatchingInterface"/> mechanism for registering types
   /// with the inversion of control container.
+  /// </para>
+  /// <para>
+  /// Classes that are decorated with the <see cref="NUnitExcludeFromAutoScanAttribute"/>
+  /// will be excluded from convention scanning.
+  /// </para>
   /// </summary>
   /// <remarks>
   /// Only assemblies loaded into the current application domain will be searched.
@@ -24,15 +31,20 @@ namespace NUnit.Extension.DependencyInjection.Unity
   {
     /// <inheritdoc/>
     /// <summary>
-    /// Registers types from all assemblies marked with the <see
-    /// cref="NUnitAutoScanAssemblyAttribute"/> and identifies
-    /// types with matching interfaces using Unity's <see
+    /// <para>
+    /// An <see cref="ITypeDiscoverer"/> whose implementation identifies all loaded
+    /// assemblies marked with the <see cref="NUnitAutoScanAssemblyAttribute"/> and
+    /// identifies concrete types with matching interfaces using Unity's <see
     /// cref="WithMappings.FromMatchingInterface"/> mechanism for registering types
     /// with the inversion of control container.
+    /// </para>
+    /// <para>
+    /// Classes that are decorated with the <see cref="NUnitExcludeFromAutoScanAttribute"/>
+    /// will be excluded from convention scanning.
+    /// </para>
     /// </summary>
     /// <param name="container">
-    /// The container with which the dependencies will
-    /// be registered.
+    /// The container with which the dependencies will be registered.
     /// </param>
     protected override void DiscoverInternal(IUnityContainer container)
     {
@@ -40,9 +52,10 @@ namespace NUnit.Extension.DependencyInjection.Unity
       {
         container.RegisterTypes(
           AppDomain.CurrentDomain.GetAssemblies()
-            // .Where(a => !a.GetCustomAttributes(typeof(NUnitExcludeFromAutoScanAttribute), true).Any())
             .Where(a => a.GetCustomAttributes(typeof(NUnitAutoScanAssemblyAttribute), true).Any())
-            .SelectMany(x => x.GetTypes()),
+            .SelectMany(x => x.GetTypes())
+            .Where(x => !x.IsAbstract)
+            .Where(t => !t.GetCustomAttributes(typeof(NUnitExcludeFromAutoScanAttribute), true).Any()),
           WithMappings.FromMatchingInterface,
           WithName.Default,
           WithLifetime.Hierarchical

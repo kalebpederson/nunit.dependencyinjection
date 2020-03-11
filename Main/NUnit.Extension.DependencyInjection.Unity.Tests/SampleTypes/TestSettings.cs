@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-namespace NUnit.Extension.DependencyInjection.Unity.Tests
+namespace NUnit.Extension.DependencyInjection.Unity.Tests.SampleTypes
 {
   public class TestSettings : ITestSettings
   {
