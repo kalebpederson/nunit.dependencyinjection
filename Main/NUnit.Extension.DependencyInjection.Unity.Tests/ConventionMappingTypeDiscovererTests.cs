@@ -53,5 +53,18 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
           "Found a registration for a type without a concrete implementation");
       }
     }
+    
+    [Test]
+    public void Discover_can_resolve_classes_that_do_not_implement_any_interfaces()
+    {
+      using (var container = new UnityContainer())
+      {
+        var discoverer = new ConventionMappingTypeDiscoverer();
+        discoverer.Discover(container);
+        var resolved = container.Resolve<ClassThatImplementsNoInterface>();
+        Assert.That(resolved, Is.Not.Null);
+        Assert.That(resolved, Is.InstanceOf<ClassThatImplementsNoInterface>());
+      }
+    }
   }
 }
