@@ -26,7 +26,6 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
       }
     }
     
-    
     [Test]
     public void Discover_excludes_types_decorated_with_NUnitExcludeFromAutoScanAttribute_from_ioc_container_registration()
     {
@@ -40,6 +39,19 @@ namespace NUnit.Extension.DependencyInjection.Unity.Tests
           $"Found a registration which mapped type {typeof(IFoo).FullName} to {typeof(Foo).FullName}");
       }
     }
-    
+
+    [Test]
+    public void Discover_excludes_interfaces_that_do_not_have_corresponding_concrete_implementations()
+    {
+      using (var container = new UnityContainer())
+      {
+        var discoverer = new ConventionMappingTypeDiscoverer();
+        discoverer.Discover(container);
+        Assert.That(
+          container.Registrations.Any(r => r.RegisteredType.IsAbstract && r.MappedToType is null),
+          Is.False,
+          "Found a registration for a type without a concrete implementation");
+      }
+    }
   }
 }
