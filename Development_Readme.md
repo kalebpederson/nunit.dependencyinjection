@@ -1,4 +1,4 @@
-# Introduction 
+# Project Structure 
 
 The root of this project contains three different folders:
 * Main - the source code for the NuGet packages
@@ -33,7 +33,8 @@ The root of this project contains three different folders:
  To perform this validation we have a second solution that validates tests
  that perform dependency injection can be properly run and executed.
  
- To perform build validation perform the following steps:
+ To validate the changes, first perform a build and pack of the solution 
+ and then perform the following steps:
  
  1. . .\scripts\Update-ValidationSolutionNuGetPackages.ps1 -basedir .
  1. dotnet test Validation\ValidationTests.sln

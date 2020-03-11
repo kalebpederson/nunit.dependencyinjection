@@ -192,9 +192,7 @@ using NUnit.Extension.DependencyInjection.Unity;
 // implementations for which the NUnitAutoScanAssembly attribute is present on
 // the assembly is present we could do the following:
 [assembly: NUnitTypeDiscoverer(
-  typeof(ManualRegistrarTypeDiscoverer),
-  new [] {typeof(Type)},
-  new object[] {typeof(BundlingRegistrar)})]
+  typeof(ManualRegistrarTypeDiscoverer<BundlingRegistrar>))]
 
 public class BundlingRegistrar : RegistrarBase<IUnityContainer>
 {
@@ -238,6 +236,14 @@ public class MyTests
   }
 }
 ```
+# Contributing
+
+Please submit a PR. If the change is major it may be worth filing an issue first
+even if only it only serves as a mechanism for discussion to ensure that the
+work your doing aligns with the goals of this project.
+
+For more information on the project structure and validation process please see
+the [Development_Readme.md](Development_Readme.md) document.
 
 # Troubleshooting
 

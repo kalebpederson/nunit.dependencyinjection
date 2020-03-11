@@ -6,10 +6,7 @@ using NUnit.Framework;
 using Unity;
 
 [assembly: NUnitTypeInjectionFactory(typeof(UnityInjectionFactory))]
-[assembly: NUnitTypeDiscoverer(
-  typeof(ManualRegistrarTypeDiscoverer),
-  new [] {typeof(Type)},
-  new object[] {typeof(BundlingRegistrar)})]
+[assembly: NUnitTypeDiscoverer(typeof(ManualRegistrarTypeDiscoverer<BundlingRegistrar>))]
 
 namespace ManualRegistrarTypeDiscovererTests
 {

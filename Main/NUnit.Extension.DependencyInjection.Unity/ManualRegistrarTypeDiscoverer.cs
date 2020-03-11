@@ -53,4 +53,18 @@ namespace NUnit.Extension.DependencyInjection.Unity
       return (IIocRegistrar)container.Resolve(registrarType);
     }
   }
+  
+  /// <summary>
+  /// A type discoverer which does discovery based on the set of discovered type
+  /// registers but otherwise does no scanning of loaded assemblies.
+  /// </summary>
+  public class ManualRegistrarTypeDiscoverer<T> : ManualRegistrarTypeDiscoverer
+  {
+    /// <summary>
+    /// Creates an instance of the type discoverer.
+    /// </summary>
+    public ManualRegistrarTypeDiscoverer() : base(typeof(T))
+    {
+    }
+  }
 }
