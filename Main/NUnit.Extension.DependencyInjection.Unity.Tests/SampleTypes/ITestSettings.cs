@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace NUnit.Extension.DependencyInjection.Unity.Tests
+namespace NUnit.Extension.DependencyInjection.Unity.Tests.SampleTypes
 {
   public interface ITestSettings
   {
