@@ -3,6 +3,7 @@
 
 using System;
 using NUnit.Extension.DependencyInjection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 // ReSharper disable once CheckNamespace
 namespace Unity

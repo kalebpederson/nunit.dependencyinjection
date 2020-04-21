@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net46;net47;netstandard20</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Version>0.7.0</Version>
     <Authors>Kaleb Pederson</Authors>
     <Company>Kaleb Pederson Software LLC</Company>
-    <Description>Enables dependency injection within NUnit using the Unity inversion of control container.</Description>
+    <Description>Enables dependency injection within NUnit. Dependency injection support is container specific and provided by separate NuGet packages.</Description>
     <Copyright>Kaleb Pederson Software LLC</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/kalebpederson/nunit.dependencyinjection</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kalebpederson/nunit.dependencyinjection</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>nunit dependency-injection unity</PackageTags>
+    <PackageTags>nunit dependency-injection</PackageTags>
     <IsTestProject>false</IsTestProject>
     <AssemblyVersion>0.7.0.0</AssemblyVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -27,20 +27,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>$(OutputPath)bin\$(Configuration)\$(TargetFramework)NUnit.Extension.DependencyInjection.Unity.xml</DocumentationFile>
+    <DocumentationFile>$(OutputPath)bin\$(Configuration)\$(TargetFramework)NUnit.Extension.DependencyInjection.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Unity.Container" Version="5.11.5" />
-    <PackageReference Include="Unity.RegistrationByConvention" Version="5.11.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\NUnit.Extension.DependencyInjection\NUnit.Extension.DependencyInjection.csproj" />
-  </ItemGroup>
 
 </Project>

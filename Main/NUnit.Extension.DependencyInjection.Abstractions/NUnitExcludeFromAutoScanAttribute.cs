@@ -3,12 +3,12 @@
 
 using System;
 
-namespace NUnit.Extension.DependencyInjection
+namespace NUnit.Extension.DependencyInjection.Abstractions
 {
   /// <summary>
   /// Attribute whose presence on a type indicates that the type should
-  /// not be included in automatic registration by any
-  /// <see cref="ITypeDiscoverer"/>s in use in the system.
+  /// not be included in convention based scanning performed by any
+  /// <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/>s in use in the system.
   /// </summary>
   [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
   public class NUnitExcludeFromAutoScanAttribute : Attribute

@@ -11,18 +11,18 @@ namespace NUnit.Extension.DependencyInjection
   public class TypeDiscovererInfo
   {
     /// <summary>
-    /// The type of <see cref="ITypeDiscoverer"/> being requested.
+    /// The type of <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/> being requested.
     /// </summary>
     public Type DiscovererType { get; set;}
     
     /// <summary>
-    /// Arguments necessary for construction of the <see cref="ITypeDiscoverer"/>.
+    /// Arguments necessary for construction of the <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/>.
     /// </summary>
     public object[] DiscovererArguments { get; set;}
     
     /// <summary>
     /// The types of the arguments necessary for construction of the
-    /// <see cref="ITypeDiscoverer"/>.
+    /// <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/>.
     /// </summary>
     public Type[] DiscovererArgumentTypes { get; set;}
   }

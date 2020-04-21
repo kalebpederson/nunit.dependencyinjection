@@ -2,12 +2,11 @@
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
-
 #if NETFULL
 using System.Runtime.Serialization;
 #endif
 
-namespace NUnit.Extension.DependencyInjection
+namespace NUnit.Extension.DependencyInjection.Abstractions
 {
   /// <summary>
   /// Exception that is throw during failed type discovery.

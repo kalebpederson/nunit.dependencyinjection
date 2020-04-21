@@ -5,15 +5,16 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using Unity;
 
 namespace NUnit.Extension.DependencyInjection.Unity
 {
   /// <summary>
-  /// A type discoverer which does discovery of all <see cref="IIocRegistrar"/>s
+  /// A type discoverer which does discovery of all <see cref="NUnit.Extension.DependencyInjection.Abstractions.IIocRegistrar"/>s
   /// available after which the discovered registrars are executed. Registrar
   /// types which are decorated with the <see
-  /// cref="NUnitExcludeFromAutoScanAttribute"/> are excluded from discovery and,
+  /// cref="NUnit.Extension.DependencyInjection.Abstractions.NUnitExcludeFromAutoScanAttribute"/> are excluded from discovery and,
   /// therefore, will not be executed.
   /// </summary>
   public class IocRegistrarTypeDiscoverer : TypeDiscovererBase<IUnityContainer>
@@ -24,15 +25,18 @@ namespace NUnit.Extension.DependencyInjection.Unity
       var types = AppDomain.CurrentDomain.GetAssemblies()
         .Where(AssemblyCanBeLoaded)
         .SelectMany(a => a.GetTypes())
-        .Where(t =>
-          typeof(IIocRegistrar).IsAssignableFrom(t)
-          && !t.IsAbstract)
-        .Where(t => !t.GetCustomAttributes(typeof(NUnitExcludeFromAutoScanAttribute), true).Any())
+        .Where(IsAnIIocRegistrar)
+        .Where(IsTypeIncludedInScanning)
         .ToList();
       foreach (var registrar in types)
       {
         ResolveAndRunRegistrar(container, registrar);
       }
+    }
+
+    private static bool IsAnIIocRegistrar(Type t)
+    {
+      return typeof(IIocRegistrar).IsAssignableFrom(t) && !t.IsAbstract;
     }
 
     private static void ResolveAndRunRegistrar(IUnityContainer container, Type registrar)
@@ -67,7 +71,10 @@ namespace NUnit.Extension.DependencyInjection.Unity
         return false;
       }
     }
+    
+    private static bool IsTypeIncludedInScanning(Type t)
+    {
+      return !t.GetCustomAttributes(typeof(NUnitExcludeFromAutoScanAttribute), true).Any();
+    }
   }
-  
-  
 }

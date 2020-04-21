@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using NUnit.Framework;
 
 namespace NUnit.Extension.DependencyInjection.Tests

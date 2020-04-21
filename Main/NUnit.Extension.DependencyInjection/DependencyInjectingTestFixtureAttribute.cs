@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 namespace NUnit.Extension.DependencyInjection
 {
@@ -27,11 +28,11 @@ namespace NUnit.Extension.DependencyInjection
     /// injection will be performed using the types specified by the parameters.
     /// </summary>
     /// <param name="injectionFactoryType">
-    /// The <see cref="IInjectionFactoryTypeSelector"/> type to be used to perform the
+    /// The <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactoryTypeSelector"/> type to be used to perform the
     /// injection.
     /// </param>
     /// <param name="typeSelectorType">
-    /// The <see cref="ITypeDiscovererTypeSelector"/> type to be used to discover the
+    /// The <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscovererTypeSelector"/> type to be used to discover the
     /// types to be registered into the inversion of control container.
     /// </param>
     public DependencyInjectingTestFixtureAttribute(Type injectionFactoryType, Type typeSelectorType)

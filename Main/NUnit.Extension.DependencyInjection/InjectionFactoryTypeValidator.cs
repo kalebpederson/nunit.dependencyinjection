@@ -3,6 +3,7 @@
 
 using System;
 using System.Reflection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 namespace NUnit.Extension.DependencyInjection
 {
@@ -16,7 +17,7 @@ namespace NUnit.Extension.DependencyInjection
     /// that the following conditions are met:
     /// <list type="bullet">
     /// <item><paramref name="factoryType"/> is not null</item>
-    /// <item>The type implements the <see cref="IInjectionFactory"/> interface</item>
+    /// <item>The type implements the <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactory"/> interface</item>
     /// <item>The type has a public no-args constructor</item>
     /// </list>
     /// </summary>

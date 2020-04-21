@@ -2,11 +2,12 @@
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 namespace NUnit.Extension.DependencyInjection
 {
   /// <summary>
-  /// Attribute that identifies the type of <see cref="ITypeDiscoverer"/>
+  /// Attribute that identifies the type of <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/>
   /// that should be used to discover the types that should be registered
   /// with the inversion of control container.
   /// </summary>
@@ -21,18 +22,18 @@ namespace NUnit.Extension.DependencyInjection
  
     /// <summary>
     /// Creates an instance of the attribute specifying that the
-    /// <see cref="ITypeDiscoverer"/> should be of type
+    /// <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/> should be of type
     /// <paramref name="typeDiscovererType"/>.
     /// </summary>
     /// <param name="typeDiscovererType">
-    /// The type of the <see cref="ITypeDiscoverer"/> to be used.
+    /// The type of the <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/> to be used.
     /// </param>
     /// <exception cref="ArgumentNullException">
     /// Thrown when <paramref name="typeDiscovererType"/> is null.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown when <paramref name="typeDiscovererType"/> does not
-    /// implement <see cref="ITypeDiscoverer"/>.
+    /// implement <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/>.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown when <paramref name="typeDiscovererType"/> does not
@@ -51,11 +52,11 @@ namespace NUnit.Extension.DependencyInjection
 
     /// <summary>
     /// Creates an instance of the attribute specifying that the
-    /// <see cref="ITypeDiscoverer"/> should be of type
+    /// <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/> should be of type
     /// <paramref name="typeDiscovererType"/>.
     /// </summary>
     /// <param name="typeDiscovererType">
-    /// The type of the <see cref="ITypeDiscoverer"/> to be used.
+    /// The type of the <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/> to be used.
     /// </param>
     /// <param name="typeDiscovererArgumentTypes"></param>
     /// <param name="typeDiscovererArguments">
@@ -66,7 +67,7 @@ namespace NUnit.Extension.DependencyInjection
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown when <paramref name="typeDiscovererType"/> does not
-    /// implement <see cref="ITypeDiscoverer"/>.
+    /// implement <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/>.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown when <paramref name="typeDiscovererType"/> does not

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 namespace NUnit.Extension.DependencyInjection
 {
@@ -15,14 +16,14 @@ namespace NUnit.Extension.DependencyInjection
 
     /// <summary>
     /// Creates an instance of the class which will always return
-    /// <paramref name="type"/> as its <see cref="IInjectionFactory"/>.
+    /// <paramref name="type"/> as its <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactory"/>.
     /// </summary>
     /// <remarks>
     /// This class is generally only used for writing unit tests and/or
     /// other dependency injection extensions.
     /// </remarks>
     /// <param name="type">
-    /// The type of <see cref="IInjectionFactory"/>.
+    /// The type of <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactory"/>.
     /// </param>
     public StaticInjectionFactoryTypeSelector(Type type)
     {

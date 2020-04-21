@@ -1,7 +1,7 @@
-﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
-namespace NUnit.Extension.DependencyInjection
+namespace NUnit.Extension.DependencyInjection.Abstractions
 {
   /// <summary>
   /// Interface by which registration of dependencies with the inversion of

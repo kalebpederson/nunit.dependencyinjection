@@ -6,7 +6,7 @@ using System;
 namespace NUnit.Extension.DependencyInjection
 {
   /// <summary>
-  /// Attribute that identifies the type of <see cref="IInjectionFactory"/>
+  /// Attribute that identifies the type of <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactory"/>
   /// that will be used to create and inject instances into the test fixtures.
   /// This will usually correspond to one of the factory types provided by a
   /// NUnit.Extension.DependencyInjection.* NuGet package, such as the
@@ -17,13 +17,13 @@ namespace NUnit.Extension.DependencyInjection
   public class NUnitTypeInjectionFactoryAttribute : Attribute
   {
     /// <summary>
-    /// The type of the configured <see cref="IInjectionFactory"/>.
+    /// The type of the configured <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactory"/>.
     /// </summary>
     public Type InjectionFactoryType { get; }
 
     /// <summary>
     /// Creates an instance of the constructor declaring that the
-    /// <see cref="IInjectionFactory"/> will be of type
+    /// <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactory"/> will be of type
     /// <paramref name="factoryType"/>.
     /// </summary>
     /// <param name="factoryType">The type of the factory to use.</param>

@@ -2,8 +2,9 @@
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using Unity;
 using Unity.RegistrationByConvention;
 
@@ -21,6 +22,11 @@ namespace NUnit.Extension.DependencyInjection.Unity
   /// Classes that are decorated with the <see cref="NUnitExcludeFromAutoScanAttribute"/>
   /// will be excluded from convention scanning.
   /// </para>
+  /// <para>
+  /// Note that this convention is potentially dangerous and, thus, it takes an opt-in approach
+  /// used to reduce the potential damage done. It does so by limiting the assemblies scanned to
+  /// those that are decorated with a <see cref="NUnitAutoScanAssemblyAttribute"/> attribute.
+  /// </para>
   /// </summary>
   /// <remarks>
   /// Only assemblies loaded into the current application domain will be searched.
@@ -32,14 +38,14 @@ namespace NUnit.Extension.DependencyInjection.Unity
     /// <inheritdoc/>
     /// <summary>
     /// <para>
-    /// An <see cref="ITypeDiscoverer"/> whose implementation identifies all loaded
+    /// An <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/> whose implementation identifies all loaded
     /// assemblies marked with the <see cref="NUnitAutoScanAssemblyAttribute"/> and
     /// identifies concrete types with matching interfaces using Unity's <see
     /// cref="WithMappings.FromMatchingInterface"/> mechanism for registering types
     /// with the inversion of control container.
     /// </para>
     /// <para>
-    /// Classes that are decorated with the <see cref="NUnitExcludeFromAutoScanAttribute"/>
+    /// Classes that are decorated with the <see cref="NUnit.Extension.DependencyInjection.Abstractions.NUnitExcludeFromAutoScanAttribute"/>
     /// will be excluded from convention scanning.
     /// </para>
     /// </summary>
@@ -52,10 +58,10 @@ namespace NUnit.Extension.DependencyInjection.Unity
       {
         container.RegisterTypes(
           AppDomain.CurrentDomain.GetAssemblies()
-            .Where(a => a.GetCustomAttributes(typeof(NUnitAutoScanAssemblyAttribute), true).Any())
+            .Where(IsAssemblyAutoScanned)
             .SelectMany(x => x.GetTypes())
             .Where(x => !x.IsAbstract)
-            .Where(t => !t.GetCustomAttributes(typeof(NUnitExcludeFromAutoScanAttribute), true).Any()),
+            .Where(IsTypeIncludedInScanning),
           WithMappings.FromMatchingInterface,
           WithName.Default,
           WithLifetime.Hierarchical
@@ -65,6 +71,16 @@ namespace NUnit.Extension.DependencyInjection.Unity
       {
         throw new TypeDiscoveryException(GetType(), ex);
       }
+    }
+
+    private static bool IsTypeIncludedInScanning(Type t)
+    {
+      return !t.GetCustomAttributes(typeof(NUnitExcludeFromAutoScanAttribute), true).Any();
+    }
+
+    private static bool IsAssemblyAutoScanned(Assembly assembly)
+    {
+      return assembly.GetCustomAttributes(typeof(NUnitAutoScanAssemblyAttribute), true).Any();
     }
   }
 }

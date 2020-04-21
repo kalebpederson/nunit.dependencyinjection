@@ -1,12 +1,12 @@
-﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
 
-namespace NUnit.Extension.DependencyInjection
+namespace NUnit.Extension.DependencyInjection.Abstractions
 {
   /// <summary>
-  /// Convenience class for creating <see cref="IIocRegistrar"/>s that
+  /// Convenience class for creating <see cref="NUnit.Extension.DependencyInjection.Abstractions.IIocRegistrar"/>s that
   /// provide a strongly typed container type to the consumer.
   /// </summary>
   /// <typeparam name="T">

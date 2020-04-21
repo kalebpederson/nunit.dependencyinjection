@@ -3,12 +3,13 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using Unity;
 
 namespace NUnit.Extension.DependencyInjection.Unity
 {
   /// <summary>
-  /// This class is an <see cref="IInjectionFactory"/> referenced through the
+  /// This class is an <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactory"/> referenced through the
   /// <see cref="NUnitTypeInjectionFactoryAttribute"/> as a means of specifying
   /// the concrete type that is used to create the instances which are
   /// injected into test fixtures decorated with the <see

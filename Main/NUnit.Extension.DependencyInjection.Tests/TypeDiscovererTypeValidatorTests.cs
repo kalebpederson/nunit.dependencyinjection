@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using NUnit.Framework;
 
 namespace NUnit.Extension.DependencyInjection.Tests

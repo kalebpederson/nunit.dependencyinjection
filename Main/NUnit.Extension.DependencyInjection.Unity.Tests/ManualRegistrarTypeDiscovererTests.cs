@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using NUnit.Framework;
 using Unity;
 

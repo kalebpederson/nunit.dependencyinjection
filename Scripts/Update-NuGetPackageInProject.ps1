@@ -24,7 +24,8 @@ try
 {
   write-host "Installing package $id from source $sourceDir into '$($projectPath.Name)' ..."
   dotnet add $projectPath.FullName package -s $sourceDir $id
-  if ($LASTEXITCODE -ne 0)
+  $completedSuccessfully = ($? -and  $LASTEXITCODE -eq 0)
+  if (-not $completedSuccessfully)
   {
     exit 3
   }

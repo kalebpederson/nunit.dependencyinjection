@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 namespace NUnit.Extension.DependencyInjection
 {
@@ -65,7 +66,7 @@ namespace NUnit.Extension.DependencyInjection
     /// <exception cref="InvalidOperationException">
     /// Thrown when more than one constructor is present.
     /// </exception>
-    /// <exception cref="DependencyResolutionException">
+    /// <exception cref="NUnit.Extension.DependencyInjection.Abstractions.DependencyResolutionException">
     /// Thrown when one of the dependencies cannot be constructed.
     /// </exception>
     public object[] GetInjectionParameters()

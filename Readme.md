@@ -45,9 +45,11 @@ process and choice very explicit. The example below demonstrates that process:
 ```csharp
 // First import the following NuGet packages: 
 // * NUnit.Extension.DependencyInjection
+// * NUnit.Extension.DependencyInjection.Abstractions
 // * NUnit.Extension.DependencyInjection.Unity
 
 using NUnit.Extension.DependencyInjection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using NUnit.Extension.DependencyInjection.Unity;
 
 // tell the extension that we will be using the Microsoft Unity Injection
@@ -116,9 +118,11 @@ This example demonstrates that process:
 ```csharp
 // First import the following NuGet packages: 
 // * NUnit.Extension.DependencyInjection
+// * NUnit.Extension.DependencyInjection.Abstractions
 // * NUnit.Extension.DependencyInjection.Unity
 
 using NUnit.Extension.DependencyInjection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using NUnit.Extension.DependencyInjection.Unity;
 
 // tell the extension that we will be using the Microsoft Unity Injection
@@ -130,10 +134,10 @@ using NUnit.Extension.DependencyInjection.Unity;
 // the assembly is present we could do the following:
 [assembly: NUnitTypeDiscoverer(typeof(ConventionMappingTypeDiscoverer))]
 
-// When using the ConventionMappingTypeDiscoverer it can become problematic
-// to scan lots of framework assemblies and types and pre-register them, so
-// assemblies to be scanned **MUST** be decorated with the NUnitAutoScanAssembly
-// attribute.
+// When using the ConventionMappingTypeDiscoverer it can be problematic and
+// dangerous to scan lots of framework assemblies and types and pre-register 
+// them, so assemblies to be scanned **MUST** be decorated with the 
+// NUnitAutoScanAssembly attribute.
 [assembly: NUnit.Extension.DependencyInjection.NUnitAutoScanAssembly]
 
 // Loaded assemblies are scanned for interfaces and corresponding concrete
@@ -179,9 +183,11 @@ manually defined and which will perform all necessary registrations.
 ```csharp
 // First import the following NuGet packages: 
 // * NUnit.Extension.DependencyInjection
+// * NUnit.Extension.DependencyInjection.Abstractions
 // * NUnit.Extension.DependencyInjection.Unity
 
 using NUnit.Extension.DependencyInjection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using NUnit.Extension.DependencyInjection.Unity;
 
 // tell the extension that we will be using the Microsoft Unity Injection
@@ -236,6 +242,14 @@ public class MyTests
   }
 }
 ```
+# Changelog
+
+* **0.7.0** - Introduces a NUnit.Extension.DependencyInjection.Abstractions assembly
+  to ease the process of creating convention based type discoverers while ensuring
+  that they don't need to depend directly on NUnit or any particular concrete types.
+* **0.6.0** - Make it possible to create `ITypeDiscover`s that require parameters
+  for configuration.
+  
 # Contributing
 
 Please submit a PR. If the change is major it may be worth filing an issue first
@@ -261,4 +275,6 @@ error messages that occur while setting up the test. Suggested steps:
 # TODO
 
 1. **Support for other containers** - Autofac and other containers that are more 
-popular should be supported.
+popular should be supported. I may just target the new .NET Core dependency 
+injection abstractions in hopes that it will be a sufficient bridge between all
+others.

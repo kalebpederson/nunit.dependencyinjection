@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 namespace NUnit.Extension.DependencyInjection
 {
@@ -15,11 +16,11 @@ namespace NUnit.Extension.DependencyInjection
     /// <summary>
     /// Validates that the information provided around the type discoverer
     /// is valid. For example, ensures that the provided type information
-    /// refers to an <see cref="ITypeDiscoverer" /> that can be constructed.
+    /// refers to an <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer" /> that can be constructed.
     /// Or, in other words, that the following conditions are met:
     /// <list type="bullet">
     /// <item>The type discoverer type information is not null.</item>
-    /// <item>Type discoverer type implements the <see cref="ITypeDiscoverer"/>
+    /// <item>Type discoverer type implements the <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/>
     /// interface.</item>
     /// <item>Type has a public no-args constructor or a constructor which
     /// matches the provided argument type information.</item>
@@ -35,7 +36,7 @@ namespace NUnit.Extension.DependencyInjection
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown when <paramref name="info"/> has a <see
     /// cref="TypeDiscovererInfo.DiscovererType" /> does not
-    /// implement <see cref="ITypeDiscoverer"/>.
+    /// implement <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/>.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException">
     /// Thrown when <paramref name="info"/> has a <see

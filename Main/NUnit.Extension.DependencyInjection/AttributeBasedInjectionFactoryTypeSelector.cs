@@ -5,11 +5,12 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 namespace NUnit.Extension.DependencyInjection
 {
   /// <summary>
-  /// Attribute by which the <see cref="IInjectionFactoryTypeSelector"/> is chosen. When this
+  /// Attribute by which the <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactoryTypeSelector"/> is chosen. When this
   /// attribute is applied to the assembly all loaded assemblies for the current <see
   /// cref="AppDomain"/> are scanned for this assembly and the <b>first</b> discovered one
   /// is used to determine the injection factory to be used.
@@ -26,7 +27,7 @@ namespace NUnit.Extension.DependencyInjection
   /// <exception cref="ArgumentOutOfRangeException">
   /// Thrown when the type returned by
   /// <see cref="NUnitTypeInjectionFactoryAttribute.InjectionFactoryType" />
-  /// does not implement <see cref="IInjectionFactory"/> or does not have a public
+  /// does not implement <see cref="NUnit.Extension.DependencyInjection.Abstractions.IInjectionFactory"/> or does not have a public
   /// no-args constructor.
   /// </exception>
   public class AttributeBasedInjectionFactoryTypeSelector : IInjectionFactoryTypeSelector

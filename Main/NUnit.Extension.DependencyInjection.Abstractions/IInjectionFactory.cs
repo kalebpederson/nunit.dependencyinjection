@@ -1,9 +1,9 @@
-﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
 
-namespace NUnit.Extension.DependencyInjection
+namespace NUnit.Extension.DependencyInjection.Abstractions
 {
   /// <summary>
   /// The main interface used to perform dependency injection on test fixtures.
@@ -30,13 +30,13 @@ namespace NUnit.Extension.DependencyInjection
     /// </summary>
     /// <param name="type">The type to be created.</param>
     /// <returns>The created object; never null.</returns>
-    /// <exception cref="Exception">
+    /// <exception cref="System.Exception">
     /// Thrown when an error occurs creating the requested dependency.
     /// </exception>
     /// <remarks>
     /// Implementations of this class may throw any reasonable type of exception as they
     /// will be caught and wrapped by the <see cref="IInjectionFactory"/>, resulting in
-    /// a <see cref="DependencyResolutionException"/> being thrown to the caller.
+    /// a <see cref="NUnit.Extension.DependencyInjection.Abstractions.DependencyResolutionException"/> being thrown to the caller.
     /// </remarks>
     object Create(Type type);
   }

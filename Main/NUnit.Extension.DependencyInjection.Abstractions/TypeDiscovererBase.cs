@@ -1,11 +1,11 @@
-﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
-namespace NUnit.Extension.DependencyInjection
+namespace NUnit.Extension.DependencyInjection.Abstractions
 {
   /// <summary>
   /// Convenience class for adding strong typing to the <see
-  /// cref="ITypeDiscoverer"/> implementations.
+  /// cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/> implementations.
   /// </summary>
   /// <typeparam name="T">
   /// The type of the inversion of control container.

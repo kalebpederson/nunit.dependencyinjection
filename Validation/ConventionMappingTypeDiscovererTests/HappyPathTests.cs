@@ -1,4 +1,5 @@
 using NUnit.Extension.DependencyInjection;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using NUnit.Extension.DependencyInjection.Unity;
 using NUnit.Framework;
 

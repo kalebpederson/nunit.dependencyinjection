@@ -4,11 +4,12 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using NUnit.Extension.DependencyInjection.Abstractions;
 
 namespace NUnit.Extension.DependencyInjection
 {
   /// <summary>
-  /// Discovers the <see cref="ITypeDiscoverer"/> that will be used to identify and
+  /// Discovers the <see cref="NUnit.Extension.DependencyInjection.Abstractions.ITypeDiscoverer"/> that will be used to identify and
   /// register types with the inversion of control container. It does so based on
   /// the presence of the <see cref="NUnitTypeDiscovererAttribute"/> and its
   /// corresponding constructor parameter.

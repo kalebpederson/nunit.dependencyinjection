@@ -1,13 +1,12 @@
-﻿// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
+// Copyright (c) Kaleb Pederson Software LLC. All rights reserved.
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
-
 #if NETFULL
 using System.Runtime.Serialization;
 #endif
 
-namespace NUnit.Extension.DependencyInjection
+namespace NUnit.Extension.DependencyInjection.Abstractions
 {
   /// <summary>
   /// Exception thrown when an error occurs attempting to resolve a dependency that

@@ -25,6 +25,7 @@ $solutionFile = (join-path $mainDir -ChildPath "NUnit.Extension.DependencyInject
 
 if (-not $singleNuGetDir) {
   $idLocationMap = @{
+    'NUnit.Extension.DependencyInjection.Abstractions' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.Abstractions\bin\$configuration"
     'NUnit.Extension.DependencyInjection' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection\bin\$configuration"
     'NUnit.Extension.DependencyInjection.Unity' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.Unity\bin\$configuration"
   }
@@ -32,6 +33,7 @@ if (-not $singleNuGetDir) {
 else
 {
   $idLocationMap = @{
+    'NUnit.Extension.DependencyInjection.Abstractions' = (resolve-path $nugetDir).Path
     'NUnit.Extension.DependencyInjection' = (resolve-path $nugetDir).Path
     'NUnit.Extension.DependencyInjection.Unity' = (resolve-path $nugetDir).Path
   }
@@ -41,7 +43,7 @@ $testProjects = @()
 dir $validationDir\*Tests\*.csproj | % {
   $testProjects += @{
     ProjectFile = $_.FullName
-    RequiredPkgs = @('NUnit.Extension.DependencyInjection', 'NUnit.Extension.DependencyInjection.Unity')
+    RequiredPkgs = @('NUnit.Extension.DependencyInjection', 'NUnit.Extension.DependencyInjection.Unity', 'NUnit.Extension.DependencyInjection.Abstractions')
     }
 }
 $validationSolution = (join-path $validationDir -ChildPath "ValidationTests.sln")

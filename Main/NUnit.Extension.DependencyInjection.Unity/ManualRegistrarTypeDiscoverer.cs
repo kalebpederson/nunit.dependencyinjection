@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file alongside the solution file for full license information.
 
 using System;
+using NUnit.Extension.DependencyInjection.Abstractions;
 using Unity;
 
 namespace NUnit.Extension.DependencyInjection.Unity
@@ -17,7 +18,10 @@ namespace NUnit.Extension.DependencyInjection.Unity
     /// <summary>
     /// Creates an instance of the type discoverer.
     /// </summary>
-    /// <param name="registrarType">The registrar to be used to register the types.</param>
+    /// <param name="registrarType">
+    /// A concrete registrar type implementing <see cref="IIocRegistrar"/> and which
+    /// should be used to register all dependencies.
+    /// </param>
     public ManualRegistrarTypeDiscoverer(Type registrarType)
     {
       _lazyRegistrarType = new Lazy<Type>(() => ValidatedRegistrarType(registrarType), true);
