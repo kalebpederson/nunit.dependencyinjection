@@ -34,6 +34,7 @@ namespace NUnit.Extension.DependencyInjection
       if (factoryType == null)
       {
         throw new ArgumentNullException(
+          nameof(factoryType),
           $"{nameof(factoryType)} specified as {nameof(IInjectionFactory)} on " +
           $"{nameof(NUnitTypeInjectionFactoryAttribute)} cannot be null."
         );
@@ -63,6 +64,7 @@ namespace NUnit.Extension.DependencyInjection
       if (!typeof(IInjectionFactory).IsAssignableFrom(factoryType))
       {
         throw new ArgumentOutOfRangeException(
+          nameof(factoryType),
           $"{nameof(factoryType)} specified on {nameof(NUnitTypeInjectionFactoryAttribute)} " +
           $"must be of type {nameof(IInjectionFactory)}."
         );

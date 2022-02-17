@@ -63,6 +63,12 @@ namespace ManualRegistrarTypeDiscovererTests
     private readonly IRequireDoIt _requireDoIt;
     private readonly IDoIt _doIt;
 
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
+      Assert.That(_requireDoIt, Is.Not.Null);
+    }
+    
     public HappyPathTests(IRequireDoIt requireDoIt, IDoIt doIt)
     {
       _requireDoIt = requireDoIt;
