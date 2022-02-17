@@ -19,16 +19,16 @@ if ($singleNuGetDir -and -not (test-path -pathtype Container $nugetDir)) {
   exit 2
 }
 
-$validationDir = (join-path $basedir -ChildPath "Validation")
-$mainDir = (join-path $basedir -ChildPath "Main")
-$scriptDir = (join-path $basedir -ChildPath "Scripts")
-$solutionFile = (join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.sln")
+$validationDir = resolve-path (join-path $basedir -ChildPath "Validation")
+$mainDir = resolve-path (join-path $basedir -ChildPath "Main")
+$scriptDir = resolve-path (join-path $basedir -ChildPath "Scripts")
+$solutionFile = resolve-path (join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.sln")
 
 if (-not $singleNuGetDir) {
   $idLocationMap = @{
-    'NUnit.Extension.DependencyInjection.Abstractions' = join-path $mainDir -ChildPath NUnit.Extension.DependencyInjection.Abstractions -AdditionalChildPath bin,$configuration
-    'NUnit.Extension.DependencyInjection' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection/bin/$configuration"
-    'NUnit.Extension.DependencyInjection.Unity' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.Unity/bin/$configuration"
+    'NUnit.Extension.DependencyInjection.Abstractions' = resolve-path (join-path $mainDir -ChildPath NUnit.Extension.DependencyInjection.Abstractions -AdditionalChildPath bin,$configuration)
+    'NUnit.Extension.DependencyInjection' = resolve-path (join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection/bin/$configuration")
+    'NUnit.Extension.DependencyInjection.Unity' = resolve-path (join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.Unity/bin/$configuration")
   }
 } 
 else
@@ -48,6 +48,22 @@ dir $validationDir/*Tests/*.csproj | % {
     }
 }
 $validationSolution = (join-path $validationDir -ChildPath "ValidationTests.sln")
+
+# update the nuget.config file so we can pick up the NuGet files
+copy-item -force $validationDir/nuget.config.empty $validationDir/nuget.config
+dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org --configfile $validationDir/nuget.config
+if ($singleNuGetDir) {
+  $nugetDirPath = (resolve-path $nugetDir).Path
+  dotnet nuget add source $nugetDirPath --name Solution --configfile $validationDir/nuget.config
+} else {
+  $idLocationMap.Keys | % {
+    dotnet nuget add source $idLocationMap[$_] --name $_ --configfile $validationDir/nuget.config
+  }
+}
+
+# do a restore of all the current packages before attempting to update
+$validationSolution = (resolve-path $validationDir/ValidationTests.sln).Path
+dotnet restore $validationSolution
 
 # update the existing projects to use the recently-built NuGet packages
 $testProjects | % {
