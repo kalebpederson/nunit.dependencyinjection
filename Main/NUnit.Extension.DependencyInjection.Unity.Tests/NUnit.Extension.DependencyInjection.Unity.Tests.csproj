@@ -1,9 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <BuildableFrameworks Condition="'$(BuildableFrameworks)' == '' AND '$(OS)' == 'Unix'">netcoreapp31</BuildableFrameworks>
-    <BuildableFrameworks Condition="'$(BuildableFrameworks)' == '' AND '$(OS)' == 'Windows'">net45;netcoreapp31</BuildableFrameworks>
-    <TargetFrameworks>$(BuildableFrameworks)</TargetFrameworks>
     <NoWarn>1701,1702,CA1040,CA1801,CA1812,SA1652,SA1412</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
@@ -11,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="Unity.Container" Version="5.11.11" />

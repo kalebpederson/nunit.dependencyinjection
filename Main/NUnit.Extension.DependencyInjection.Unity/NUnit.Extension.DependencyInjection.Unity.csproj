@@ -1,9 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <BuildableFrameworks Condition="'$(BuildableFrameworks)' == '' AND '$(OS)' == 'Unix'">netstandard20</BuildableFrameworks>
-    <BuildableFrameworks Condition="'$(BuildableFrameworks)' == '' AND '$(OS)' == 'Windows'">net45;net46;net47;netstandard20</BuildableFrameworks>
-    <TargetFrameworks>$(BuildableFrameworks)</TargetFrameworks>
     <Version>0.7.1</Version>
     <Authors>Kaleb Pederson</Authors>
     <Company>Kaleb Pederson Software LLC</Company>

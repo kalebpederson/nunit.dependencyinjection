@@ -2,6 +2,15 @@
   
   <!-- this file is automatically imported by dotnet, by naming convention, when doing a build -->
 
+  <!-- properties that should be set for all the solutions -->
+  <PropertyGroup>
+    <HardCodedFrameworks Condition="'$(BuildableFrameworks)' != ''">1</HardCodedFrameworks>
+    <BuildableFrameworks Condition="'$(HardCodedFrameworks)' != '1' AND '$(OS)' == 'Windows_NT'">net45;net46;net47</BuildableFrameworks>
+    <BuildableFrameworks Condition="'$(HardCodedFrameworks)' != '1' AND '$(OS)' != 'Windows_NT' AND '$(IsTestProject)' != 'true'">netstandard20</BuildableFrameworks>
+    <BuildableFrameworks Condition="'$(HardCodedFrameworks)' != '1' AND '$(OS)' != 'Windows_NT' AND '$(IsTestProject)' == 'true'">net6.0</BuildableFrameworks>
+    <TargetFrameworks>$(BuildableFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+
   <!-- use the same stylecop rules across the solution -->
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)CodeAnalysis.ruleset</CodeAnalysisRuleSet>    
