@@ -1,0 +1,13 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <!-- this file is automatically imported by dotnet, by naming convention, when doing a build -->
+
+  <!-- properties that should be set for all the solutions -->
+  <PropertyGroup>
+    <HardCodedFrameworks Condition="'$(BuildableFrameworks)' != ''">1</HardCodedFrameworks>
+    <BuildableFrameworks Condition="'$(HardCodedFrameworks)' != '1'">net6.0</BuildableFrameworks>
+    <BuildableFrameworks Condition="'$(HardCodedFrameworks)' != '1' AND '$(OS)' == 'Windows_NT'">$(BuildableFrameworks);net45;net46;net47</BuildableFrameworks>
+    <TargetFrameworks>$(BuildableFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+
+</Project>

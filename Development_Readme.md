@@ -6,9 +6,14 @@ The root of this project contains three different folders:
   and NuGet packages.
 * Validation - source code used to validate that the generated NuGet
   packages work against prior versions of the API.
-  
- # Building the Source
- 
+
+# Short Version
+
+ Run `build.ps1`. It will execute all the steps listed below. 
+
+
+# Building the Source
+
  Build the application per the following steps:
  
  1. dotnet test Main/NUnit.Extension.DependencyInjection.sln

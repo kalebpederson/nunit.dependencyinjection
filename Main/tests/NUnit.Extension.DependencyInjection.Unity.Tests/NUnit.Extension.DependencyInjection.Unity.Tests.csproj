@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NUnit.Extension.DependencyInjection.Unity\NUnit.Extension.DependencyInjection.Unity.csproj" />
+    <ProjectReference Include="..\..\src\NUnit.Extension.DependencyInjection.Unity\NUnit.Extension.DependencyInjection.Unity.csproj" />
   </ItemGroup>
 
 </Project>

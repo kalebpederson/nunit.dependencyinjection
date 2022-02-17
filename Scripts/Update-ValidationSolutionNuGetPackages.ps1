@@ -26,9 +26,9 @@ $solutionFile = resolve-path (join-path $mainDir -ChildPath "NUnit.Extension.Dep
 
 if (-not $singleNuGetDir) {
   $idLocationMap = @{
-    'NUnit.Extension.DependencyInjection.Abstractions' = resolve-path (join-path $mainDir -ChildPath NUnit.Extension.DependencyInjection.Abstractions -AdditionalChildPath bin,$configuration)
-    'NUnit.Extension.DependencyInjection' = resolve-path (join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection/bin/$configuration")
-    'NUnit.Extension.DependencyInjection.Unity' = resolve-path (join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.Unity/bin/$configuration")
+    'NUnit.Extension.DependencyInjection.Abstractions' = resolve-path (join-path $mainDir -ChildPath src/NUnit.Extension.DependencyInjection.Abstractions -AdditionalChildPath bin,$configuration)
+    'NUnit.Extension.DependencyInjection' = resolve-path (join-path $mainDir -ChildPath "src/NUnit.Extension.DependencyInjection/bin/$configuration")
+    'NUnit.Extension.DependencyInjection.Unity' = resolve-path (join-path $mainDir -ChildPath "src/NUnit.Extension.DependencyInjection.Unity/bin/$configuration")
   }
 } 
 else
