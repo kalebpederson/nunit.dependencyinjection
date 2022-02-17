@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 param(
   [Parameter(Mandatory=$true)]
   [string]$source,                # nuget package source
@@ -8,12 +9,12 @@ param(
 )
 
 if (-not (test-path -type Leaf $installProject)) {
-  write-error 'installproject must be a valid file'
+  write-error "installproject ($installProject) must be a valid file"
   exit 1
 }
 
 if (-not (test-path -type Container $source)) {
-  write-error 'source must be a valid directory'
+  write-error "source ($source) must be a valid directory"
   exit 2
 }
 

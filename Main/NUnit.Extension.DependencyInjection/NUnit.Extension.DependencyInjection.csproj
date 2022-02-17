@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net46;net47;netstandard20</TargetFrameworks>
-    <Version>0.7.0</Version>
+    <BuildableFrameworks Condition="'$(BuildableFrameworks)' == '' AND '$(OS)' == 'Unix'">netstandard20</BuildableFrameworks>
+    <BuildableFrameworks Condition="'$(BuildableFrameworks)' == '' AND '$(OS)' == 'Windows'">net45;net46;net47;netstandard20</BuildableFrameworks>
+    <TargetFrameworks>$(BuildableFrameworks)</TargetFrameworks>
+    <Version>0.7.1</Version>
     <Authors>Kaleb Pederson</Authors>
     <Company>Kaleb Pederson Software LLC</Company>
     <Description>Enables dependency injection within NUnit. Dependency injection support is container specific and provided by separate NuGet packages.</Description>
@@ -13,10 +15,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>nunit dependency-injection</PackageTags>
     <IsTestProject>false</IsTestProject>
-    <AssemblyVersion>0.7.0.0</AssemblyVersion>
+    <AssemblyVersion>0.7.1.0</AssemblyVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReleaseNotes>
-      Introduce a NUnit.Extension.DependencyInjection.Abstractions assembly for contracts.
+      Fix a couple of errors in parameter names of thrown exceptions. Explicitly set NuGet package dependency versions.
     </PackageReleaseNotes>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
@@ -31,11 +33,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit" Version="[3.12.0, 4.0.0)" />
   </ItemGroup>
   
   <ItemGroup>

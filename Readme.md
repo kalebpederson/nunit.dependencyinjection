@@ -24,8 +24,9 @@ pre-releases and are **NOT** subject to API/ABI compatibility.
 
 # Usage
 
-The below is **subject to change at our whims until version 1.0**. For a
-working example see the different test projects in the Validation folder.
+The below is **subject to change at our whims until version 1.0**, though note
+that we don't expect it to change. For a working example see the different test 
+projects in the Validation folder.
 
 Two different mechanisms are currently provided by which dependencies are
 discovered, though custom processes can be added as well:
@@ -244,6 +245,10 @@ public class MyTests
 ```
 # Changelog
 
+* **0.7.1** - Fix a bug where the message was set as a parameter name in some
+  argument exceptions that were thrown. Explicitly set the version range of allowed
+  NuGet packages so there's no confusion when performing package updates. Update
+  PowerShell scripts to run on Windows and Linux.
 * **0.7.0** - Introduces a NUnit.Extension.DependencyInjection.Abstractions assembly
   to ease the process of creating convention based type discoverers while ensuring
   that they don't need to depend directly on NUnit or any particular concrete types.

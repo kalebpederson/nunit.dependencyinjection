@@ -34,6 +34,7 @@ namespace NUnit.Extension.DependencyInjection.Unity
         return registrarType;
       }
       throw new ArgumentOutOfRangeException(
+        nameof(registrarType),
         $"{nameof(registrarType)} must be an instantiable subclass of {nameof(IIocRegistrar)}"
         );
     }

@@ -11,8 +11,8 @@ The root of this project contains three different folders:
  
  Build the application per the following steps:
  
- 1. dotnet test Main\NUnit.Extension.DependencyInjection.sln
- 1. dotnet pack --no-build Main\NUnit.Extension.DependencyInjection.sln
+ 1. dotnet test Main/NUnit.Extension.DependencyInjection.sln
+ 1. dotnet pack --no-build Main/NUnit.Extension.DependencyInjection.sln
  
  Step 1 above will cause a restore of NuGet packages to take place, a 
  build of the solution, followed by the execution of the unit tests.
@@ -36,8 +36,8 @@ The root of this project contains three different folders:
  To validate the changes, first perform a build and pack of the solution 
  and then perform the following steps:
  
- 1. . .\scripts\Update-ValidationSolutionNuGetPackages.ps1 -basedir .
- 1. dotnet test Validation\ValidationTests.sln
+ 1. ./Scripts/Update-ValidationSolutionNuGetPackages.ps1 -basedir .
+ 1. dotnet test Validation/ValidationTests.sln
  
  The first step updates the NuGet package reference in the validation 
  solution, ensuring that it points at the just-packed NuGet package.

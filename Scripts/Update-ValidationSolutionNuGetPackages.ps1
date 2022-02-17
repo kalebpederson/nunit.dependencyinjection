@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 # Generates NuGet packages from the main code, then validates that the
 # validation tests can run against the generated NuGet packages.
 param(
@@ -5,7 +6,7 @@ param(
   [string]$basedir,
   [switch]$singleNuGetDir=$false,
   [string]$nugetDir="",
-  [string]$configuration="debug"
+  [string]$configuration="Debug"
   )
 
 if (-not (test-path -PathType Container $basedir)) {
@@ -25,9 +26,9 @@ $solutionFile = (join-path $mainDir -ChildPath "NUnit.Extension.DependencyInject
 
 if (-not $singleNuGetDir) {
   $idLocationMap = @{
-    'NUnit.Extension.DependencyInjection.Abstractions' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.Abstractions\bin\$configuration"
-    'NUnit.Extension.DependencyInjection' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection\bin\$configuration"
-    'NUnit.Extension.DependencyInjection.Unity' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.Unity\bin\$configuration"
+    'NUnit.Extension.DependencyInjection.Abstractions' = join-path $mainDir -ChildPath NUnit.Extension.DependencyInjection.Abstractions -AdditionalChildPath bin,$configuration
+    'NUnit.Extension.DependencyInjection' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection/bin/$configuration"
+    'NUnit.Extension.DependencyInjection.Unity' = join-path $mainDir -ChildPath "NUnit.Extension.DependencyInjection.Unity/bin/$configuration"
   }
 } 
 else
@@ -40,7 +41,7 @@ else
 }
 
 $testProjects = @()
-dir $validationDir\*Tests\*.csproj | % {
+dir $validationDir/*Tests/*.csproj | % {
   $testProjects += @{
     ProjectFile = $_.FullName
     RequiredPkgs = @('NUnit.Extension.DependencyInjection', 'NUnit.Extension.DependencyInjection.Unity', 'NUnit.Extension.DependencyInjection.Abstractions')
@@ -56,8 +57,6 @@ $testProjects | % {
     $id = $_
     $projectName = (get-item $projectFile).Name
     Write-Host "Updating package $id in $projectName using source '$($idLocationMap[$id])' ..." 
-    . $scriptDir\Update-NuGetPackageInProject.ps1 -id $id -source $idLocationMap[$id] -installProject $projectFile
+    . $scriptDir/Update-NuGetPackageInProject.ps1 -id $id -source $idLocationMap[$id] -installProject $projectFile
   }
 }
-
-

@@ -82,6 +82,7 @@ namespace NUnit.Extension.DependencyInjection
       if (discovererType == null)
       {
         throw new ArgumentNullException(
+          nameof(discovererType),
           $"{nameof(discovererType)} specified as {nameof(ITypeDiscoverer)} on " +
           $"{nameof(NUnitTypeDiscovererAttribute)} cannot be null."
         );
@@ -93,6 +94,7 @@ namespace NUnit.Extension.DependencyInjection
       if (!typeof(ITypeDiscoverer).IsAssignableFrom(discovererType))
       {
         throw new ArgumentOutOfRangeException(
+          nameof(discovererType),
           $"{nameof(discovererType)} specified on {nameof(NUnitTypeDiscovererAttribute)} " +
           $"must be of type {nameof(ITypeDiscoverer)}."
         );
